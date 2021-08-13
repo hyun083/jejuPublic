@@ -73,9 +73,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 contentVC.apGroupNameText = eventAnnotation.title!
                 contentVC.addressDongText = eventAnnotation.subtitle!
                 
-                contentVC.viewWillAppear(true)
+                performSegue(withIdentifier: "sendToSearchVC", sender: nil)
             }
-            
         }
     }
     
