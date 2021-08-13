@@ -1,0 +1,15 @@
+//
+//  EventAnnotation.swift
+//  jejuPublic
+//
+//  Created by Hyun on 2021/08/12.
+//
+
+import Foundation
+import UIKit
+import MapKit
+
+class EventAnnotation : MKPointAnnotation{
+    var myEvent:UIEvent?
+    
+}
