@@ -69,12 +69,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
-            let contentVC = storyboard?.instantiateViewController(identifier: "SearchVC") as? SearchVC
+            if let contentVC = storyboard?.instantiateViewController(identifier: "SearchVC") as? SearchVC{
+                contentVC.apGroupNameText = eventAnnotation.title!
+                contentVC.addressDongText = eventAnnotation.subtitle!
+                
+                contentVC.viewWillAppear(true)
+            }
             
-            contentVC?.apGroupNameText = "x"
-            contentVC?.addressDongText = "xx"
-            
-            contentVC?.viewDidLoad()
         }
     }
     

@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 class SearchVC: UIViewController{
-    @IBOutlet var APGroupName: UILabel!
-    @IBOutlet var addressDong: UILabel!
-    @IBOutlet var addressDetail: UILabel!
+    @IBOutlet weak var APGroupName: UILabel!
+    @IBOutlet weak var addressDong: UILabel!
+    @IBOutlet weak var addressDetail: UILabel!
     
     var apGroupNameText = "선택된 핀"
     var addressDongText = "행정구역"
@@ -22,5 +22,12 @@ class SearchVC: UIViewController{
         self.APGroupName.text = apGroupNameText
         self.addressDong.text = addressDongText
         self.addressDetail.text = addressDetailText
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(apGroupNameText)
+        print(addressDongText)
+        print(addressDetailText)
+        APGroupName.text = apGroupNameText
     }
 }

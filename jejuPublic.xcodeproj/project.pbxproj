@@ -18,7 +18,6 @@
 		D2E786DF26A985AA007F4A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2E786DD26A985AA007F4A16 /* LaunchScreen.storyboard */; };
 		D2E786E826B1B35B007F4A16 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = D2E786E726B1B35B007F4A16 /* PanModal */; };
 		D2E786EA26B1B50B007F4A16 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786E926B1B50B007F4A16 /* DetailViewController.swift */; };
-		D2E786EC26C2EB54007F4A16 /* MyTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786EB26C2EB54007F4A16 /* MyTableVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +33,6 @@
 		D2E786DE26A985AA007F4A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2E786E026A985AA007F4A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2E786E926B1B50B007F4A16 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		D2E786EB26C2EB54007F4A16 /* MyTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableVC.swift; sourceTree = "<group>"; };
 		DFD07BA9ED64B475868F8B96 /* Pods-jejuPublic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.debug.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.debug.xcconfig"; sourceTree = "<group>"; };
 		F4F53578373DE1A464B1DBE2 /* Pods-jejuPublic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.release.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,7 +86,6 @@
 				D2E786D626A985A6007F4A16 /* ViewController.swift */,
 				D2E786D826A985A6007F4A16 /* Main.storyboard */,
 				D26A4DDB26C3D1E7000C4195 /* SearchVC.swift */,
-				D2E786EB26C2EB54007F4A16 /* MyTableVC.swift */,
 				D2E786E926B1B50B007F4A16 /* DetailViewController.swift */,
 				D2E786DB26A985AA007F4A16 /* Assets.xcassets */,
 				D2E786DD26A985AA007F4A16 /* LaunchScreen.storyboard */,
@@ -229,7 +226,6 @@
 				D26A4DDE26C42E87000C4195 /* EventAnnotation.swift in Sources */,
 				D2E786D726A985A6007F4A16 /* ViewController.swift in Sources */,
 				D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */,
-				D2E786EC26C2EB54007F4A16 /* MyTableVC.swift in Sources */,
 				D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */,
 				D2E786EA26B1B50B007F4A16 /* DetailViewController.swift in Sources */,
 			);
