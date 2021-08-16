@@ -36,11 +36,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         fpc.set(contentViewController: contentVC)
         
         fpc.addPanel(toParent: self)
-        
     }
     
     //위치이동 함수, 위도 경도의 자료형은 CLLocationDegrees이다.
-    func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ txt1:String, _ txt2:String){
+    func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ txt1:String, _ txt2:String, _ addressDong:String, _ addressDetail:String){
         
         //좌표 설정
         let pLoc = CLLocationCoordinate2DMake(lat, long)
@@ -58,6 +57,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //핀 이름 적기
         pin.title = txt1
         pin.subtitle = txt2
+        pin.addressDong = addressDong
+        pin.addressDetail = addressDetail
         
         //핀에 좌표넣기
         pin.coordinate = pLoc
@@ -69,14 +70,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
-            if let contentVC = storyboard?.instantiateViewController(identifier: "SearchVC") as? SearchVC{
-                contentVC.apGroupNameText = eventAnnotation.title!
-                contentVC.addressDongText = eventAnnotation.subtitle!
-                
-                performSegue(withIdentifier: "sendToSearchVC", sender: nil)
+            if let contentVC = fpc.contentViewController as? SearchVC{
+                contentVC.updateView(eventAnnotation.title!, eventAnnotation.addressDong, eventAnnotation.addressDetail)
             }
         }
     }
+    
     
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 //        guard !(annotation is MKUserLocation) else{
@@ -128,7 +127,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                                     self.apGroupName.append(apName)
                                     //iu변경은 메인스레드에서 작업!
                                     DispatchQueue.main.async {
-                                        self.makePin(location.latitude, location.longitude, apName, installlocation)
+                                        self.makePin(location.latitude, location.longitude, apName, installlocation,data["addressDong"] as! String, data["addressDetail"] as! String)
                                     }
                                 }
                             }
