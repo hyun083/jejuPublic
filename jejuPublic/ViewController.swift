@@ -27,6 +27,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         urlrequest(count: 1)
         
         mapView.delegate = self
+//        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         fpc = FloatingPanelController()
         
@@ -36,6 +37,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         fpc.set(contentViewController: contentVC)
         
         fpc.addPanel(toParent: self)
+        floatingPaneldesign()
+    }
+    
+    func floatingPaneldesign(){
+        let appearance = SurfaceAppearance()
+        
+        appearance.cornerRadius = 15.0
+        appearance.backgroundColor = .clear
+        
+        let shadow = SurfaceAppearance.Shadow()
+        shadow.color = UIColor.black
+        shadow.offset = CGSize(width: 0, height: 16)
+        shadow.radius = 16
+        shadow.spread = 8
+        appearance.shadows = [shadow]
+        
+        fpc.surfaceView.appearance = appearance
     }
     
     //위치이동 함수, 위도 경도의 자료형은 CLLocationDegrees이다.
@@ -66,7 +84,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //지도에 핀 그리기
         mapView.addAnnotation(pin)
     }
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
