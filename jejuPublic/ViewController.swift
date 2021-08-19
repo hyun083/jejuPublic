@@ -38,6 +38,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         fpc.addPanel(toParent: self)
         floatingPaneldesign()
+        
     }
     
     func floatingPaneldesign(){
@@ -57,7 +58,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     //위치이동 함수, 위도 경도의 자료형은 CLLocationDegrees이다.
-    func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ txt1:String, _ txt2:String, _ addressDong:String, _ addressDetail:String){
+    func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String, _ macAddress:String){
         
         //좌표 설정
         let pLoc = CLLocationCoordinate2DMake(lat, long)
@@ -73,10 +74,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         let pin = EventAnnotation()
         
         //핀 이름 적기
-        pin.title = txt1
-        pin.subtitle = txt2
+        pin.title = apName
+        pin.subtitle = installLocation
         pin.addressDong = addressDong
         pin.addressDetail = addressDetail
+        pin.macAddress = macAddress
         
         //핀에 좌표넣기
         pin.coordinate = pLoc
@@ -88,7 +90,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
             if let contentVC = fpc.contentViewController as? SearchVC{
-                contentVC.updateView(eventAnnotation.title!, eventAnnotation.addressDong, eventAnnotation.addressDetail)
+                contentVC.updateView(eventAnnotation.title!, eventAnnotation.addressDong, eventAnnotation.addressDetail, eventAnnotation.macAddress)
             }
         }
     }
@@ -144,7 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                                     self.apGroupName.append(apName)
                                     //iu변경은 메인스레드에서 작업!
                                     DispatchQueue.main.async {
-                                        self.makePin(location.latitude, location.longitude, apName, installlocation,data["addressDong"] as! String, data["addressDetail"] as! String)
+                                        self.makePin(location.latitude, location.longitude, apName, installlocation,data["addressDong"] as! String, data["addressDetail"] as! String, data["macAddress"] as! String)
                                     }
                                 }
                             }

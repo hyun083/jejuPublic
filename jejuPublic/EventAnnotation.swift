@@ -13,5 +13,5 @@ class EventAnnotation : MKPointAnnotation{
     var myEvent:UIEvent?
     var addressDong = String()
     var addressDetail = String()
-    
+    var macAddress = String()
 }
