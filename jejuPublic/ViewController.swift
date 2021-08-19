@@ -15,15 +15,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
 
     @IBOutlet var mapView: MKMapView!
     
-    var jsonData = Dictionary<String,String>()
-    var test = ""
-    var loc:[CLLocationCoordinate2D] = []
-    var apGroupName:[String] = []
     var fpc: FloatingPanelController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         urlrequest(count: 1)
         
         mapView.delegate = self
@@ -33,7 +28,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         fpc.delegate = self
         
-        let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SearchVC")
+        let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
         fpc.set(contentViewController: contentVC)
         
         fpc.addPanel(toParent: self)
@@ -89,7 +84,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
-            if let contentVC = fpc.contentViewController as? SearchVC{
+            if let contentVC = fpc.contentViewController as? ContentVC{
                 contentVC.updateView(eventAnnotation.title!, eventAnnotation.addressDong, eventAnnotation.addressDetail, eventAnnotation.macAddress)
             }
         }
@@ -142,8 +137,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                                     let apName = data["apGroupName"] as! String
                                     let installlocation = data["installLocationDetail"] as! String
                                     
-                                    self.loc.append(location)
-                                    self.apGroupName.append(apName)
                                     //iu변경은 메인스레드에서 작업!
                                     DispatchQueue.main.async {
                                         self.makePin(location.latitude, location.longitude, apName, installlocation,data["addressDong"] as! String, data["addressDetail"] as! String, data["macAddress"] as! String)

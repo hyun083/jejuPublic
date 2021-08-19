@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SearchVC: UIViewController{
+class ContentVC: UIViewController{
     @IBOutlet var apGroupName: UILabel!
     @IBOutlet var addressDetail: UILabel!
     @IBOutlet var addressDong: UILabel!
