@@ -33,7 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         fpc.addPanel(toParent: self)
         floatingPaneldesign()
-        
+        fpc.layout = CustomFloatingPanelLayout()
     }
     
     func floatingPaneldesign(){
@@ -50,6 +50,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         appearance.shadows = [shadow]
         
         fpc.surfaceView.appearance = appearance
+    }
+    
+    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
+        if fpc.isAttracting == false{
+            let loc = fpc.surfaceLocation
+            let minY = fpc.surfaceLocation(for: .full).y - 3.0
+            let maxY = fpc.surfaceLocation(for: .tip).y + 3.0
+            fpc.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY),maxY))
+        }
     }
     
     //위치이동 함수, 위도 경도의 자료형은 CLLocationDegrees이다.

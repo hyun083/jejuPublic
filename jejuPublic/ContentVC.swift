@@ -14,7 +14,7 @@ class ContentVC: UIViewController{
     @IBOutlet var addressDong: UILabel!
     @IBOutlet var macAddress: UILabel!
     
-    var apGroupNameText = "선택된 핀"
+    var apGroupNameText = "공공와이파이"
     var addressDongText = "관할구역"
     var addressDetailText = "상세주소"
     var macAddressText = "맥주소"
