@@ -2,14 +2,14 @@
 //  CustomPanelBehavior.swift
 //  jejuPublic
 //
-//  Created by Hyun on 2021/08/20.
+//  Created by Hyun on 2021/08/23.
 //
 
 import Foundation
 import FloatingPanel
 
-class CustomPanelBehavior: FloatingPanelBehavior {
+class CustomPanelBehavior: FloatingPanelBehavior{
     func allowsRubberBanding(for edge: UIRectEdge) -> Bool {
-            return false
-        }
+        return true
+    }
 }

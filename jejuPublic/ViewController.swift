@@ -24,16 +24,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.delegate = self
 //        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
-        fpc = FloatingPanelController()
-        
-        fpc.delegate = self
+        fpc = FloatingPanelController(delegate: self)
         
         let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
+        
         fpc.set(contentViewController: contentVC)
         
         fpc.addPanel(toParent: self)
+
         floatingPaneldesign()
+        
         fpc.layout = CustomFloatingPanelLayout()
+        fpc.behavior = CustomPanelBehavior()
+        fpc.show()
     }
     
     func floatingPaneldesign(){
@@ -52,11 +55,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         fpc.surfaceView.appearance = appearance
     }
     
+    //floatingPanel 스크롤 범위 설정
     func floatingPanelDidMove(_ fpc: FloatingPanelController) {
         if fpc.isAttracting == false{
             let loc = fpc.surfaceLocation
-            let minY = fpc.surfaceLocation(for: .full).y - 3.0
-            let maxY = fpc.surfaceLocation(for: .tip).y + 3.0
+            let minY = fpc.surfaceLocation(for: .half).y
+            let maxY = fpc.surfaceLocation(for: .tip).y
             fpc.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY),maxY))
         }
     }
