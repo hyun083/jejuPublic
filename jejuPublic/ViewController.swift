@@ -22,6 +22,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         urlrequest(count: 1)
         
         mapView.delegate = self
+        
 //        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         fpc = FloatingPanelController(delegate: self)
@@ -59,8 +60,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func floatingPanelDidMove(_ fpc: FloatingPanelController) {
         if fpc.isAttracting == false{
             let loc = fpc.surfaceLocation
-            let minY = fpc.surfaceLocation(for: .half).y
-            let maxY = fpc.surfaceLocation(for: .tip).y
+            let minY = fpc.surfaceLocation(for: .half).y - 1.0
+            let maxY = fpc.surfaceLocation(for: .tip).y + 1.0
             fpc.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY),maxY))
         }
     }
@@ -94,6 +95,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //지도에 핀 그리기
         mapView.addAnnotation(pin)
     }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
@@ -103,28 +105,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
     }
     
-    
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        guard !(annotation is MKUserLocation) else{
-//            return nil
-//        }
-//
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
-//        if annotationView == nil{
-//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
-//            annotationView?.canShowCallout = true
-//
-//        }else{
-//            annotationView?.annotation = annotation
-//        }
-//        annotationView?.image = UIImage(named: "wifiPin")
-//        return annotationView
-//    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
+
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
+        annotationView?.glyphImage = UIImage(named: "wifi_logo")
+//        annotationView?.clusteringIdentifier = "identifier"
+
+        return annotationView
+    }
     
     func urlrequest(count: Int) {
-        for i in count...63{
+        for i in count...22{
             //api 주소
-            let url = URL(string: "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj?number="+String(i)+"&limit=100")!
+            let url = URL(string: "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj?number="+String(i)+"&limit=100&baseDate=20200525")!
             
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else {return}

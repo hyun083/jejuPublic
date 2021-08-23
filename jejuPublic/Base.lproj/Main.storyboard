@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uKp-o7-G8B">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="mapView" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uKp-o7-G8B">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="846"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -26,7 +26,7 @@
                             <constraint firstItem="uKp-o7-G8B" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="BtU-JJ-Ptf"/>
                             <constraint firstItem="uKp-o7-G8B" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="NRg-C9-wwC"/>
                             <constraint firstItem="uKp-o7-G8B" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dRs-wb-wDi"/>
-                            <constraint firstAttribute="bottom" secondItem="uKp-o7-G8B" secondAttribute="bottom" id="yud-0a-yST"/>
+                            <constraint firstAttribute="bottom" secondItem="uKp-o7-G8B" secondAttribute="bottomMargin" id="yud-0a-yST"/>
                         </constraints>
                     </view>
                     <connections>
