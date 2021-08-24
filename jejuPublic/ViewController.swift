@@ -8,41 +8,36 @@
 import UIKit
 import MapKit
 import SwiftUI
-
 import FloatingPanel
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FloatingPanelControllerDelegate{
 
     @IBOutlet var mapView: MKMapView!
-    
     var fpc: FloatingPanelController!
-    
+    let userLoc = CLLocationManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         urlrequest(count: 1)
-        
         mapView.delegate = self
         
-//        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        
         fpc = FloatingPanelController(delegate: self)
-        
         let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
-        
         fpc.set(contentViewController: contentVC)
-        
         fpc.addPanel(toParent: self)
 
         floatingPaneldesign()
-        
         fpc.layout = CustomFloatingPanelLayout()
         fpc.behavior = CustomPanelBehavior()
         fpc.show()
+        
+        showUserLocation()
     }
     
+    // MARK: - FloatingPanel custom
+
     func floatingPaneldesign(){
         let appearance = SurfaceAppearance()
-        
         appearance.cornerRadius = 15.0
         appearance.backgroundColor = .clear
         
@@ -51,8 +46,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         shadow.offset = CGSize(width: 0, height: 16)
         shadow.radius = 16
         shadow.spread = 8
-        appearance.shadows = [shadow]
         
+        appearance.shadows = [shadow]
         fpc.surfaceView.appearance = appearance
     }
     
@@ -66,18 +61,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
     }
     
+    // MARK: - mapView custom
+
     //위치이동 함수, 위도 경도의 자료형은 CLLocationDegrees이다.
     func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String, _ macAddress:String){
         
         //좌표 설정
         let pLoc = CLLocationCoordinate2DMake(lat, long)
-//        //배율 설정
-//        let pZoom = MKCoordinateSpan(latitudeDelta:0.01, longitudeDelta: 0.01)
-//        //지역 설정
-//        let pRegion = MKCoordinateRegion(center: pLoc, span: pZoom)
-//
-//        //지도에 설정해놓은 지역 그리기
-//        mapView.setRegion(pRegion, animated: false)
         
         //표시할 핀 생성
         let pin = EventAnnotation()
@@ -96,6 +86,42 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.addAnnotation(pin)
     }
     
+    func showUserLocation() {
+        //아이폰으로부터 위치정보를 위임받는다.
+        userLoc.delegate = self
+
+        //위치정보사용 승인요청보내기 앱실행 최초 한번만 뜬다.
+        userLoc.requestWhenInUseAuthorization()
+
+        //gps신호받기 시작.
+        userLoc.startUpdatingLocation()
+
+        //지도에서 내위치 보이기
+        mapView.showsUserLocation = true
+        
+        userLoc.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let loc = locations.last!.coordinate
+        print("내위치 갱신 완료: \(loc.latitude), \(loc.longitude)")
+
+        //배율 설정
+        let pZoom = MKCoordinateSpan(latitudeDelta:0.01, longitudeDelta: 0.01)
+        //지역 설정
+        let pRegion = MKCoordinateRegion(center: loc, span: pZoom)
+        
+        mapView.setRegion(pRegion, animated: true)
+        
+        //위치갱신후 멈춰주어야 바로 동작한다.
+        userLoc.stopUpdatingLocation()
+    }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+//        mapView.setUserTrackingMode(.followWithHeading, animated: true)
+    }
+    
+    //annotation event
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
@@ -105,6 +131,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
     }
     
+    //annotationView custom
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
 
@@ -117,10 +144,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
         annotationView?.glyphImage = UIImage(named: "wifi_logo")
 //        annotationView?.clusteringIdentifier = "identifier"
-
+       
         return annotationView
     }
     
+    // MARK: - urlrequest
+
     func urlrequest(count: Int) {
         for i in count...22{
             //api 주소
