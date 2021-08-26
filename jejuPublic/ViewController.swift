@@ -15,11 +15,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     @IBOutlet var mapView: MKMapView!
     var fpc: FloatingPanelController!
     let userLoc = CLLocationManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         urlrequest(count: 1)
         mapView.delegate = self
+        let userTrackingButton = MKUserTrackingBarButtonItem(mapView: mapView)
         
         fpc = FloatingPanelController(delegate: self)
         let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
@@ -145,6 +146,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         annotationView?.glyphImage = UIImage(named: "wifi_logo")
 //        annotationView?.clusteringIdentifier = "identifier"
        
+        if annotation.isEqual(mapView.userLocation) {
+                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "userLocation")
+                annotationView.image = UIImage(named: "wifi_logo")
+                return annotationView
+            }
+        
         return annotationView
     }
     
