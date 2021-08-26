@@ -135,23 +135,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //annotationView custom
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
-
-        if annotationView == nil {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-        } else {
-            annotationView?.annotation = annotation
-        }
-
-        annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
-        annotationView?.glyphImage = UIImage(named: "wifi_logo")
-//        annotationView?.clusteringIdentifier = "identifier"
-       
-        if annotation.isEqual(mapView.userLocation) {
-                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "userLocation")
-                annotationView.image = UIImage(named: "wifi_logo")
-                return annotationView
-            }
         
+        if !annotation.isEqual(mapView.userLocation) {
+            if annotationView == nil {
+                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
+            } else {
+                annotationView?.annotation = annotation
+            }
+
+            annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
+            annotationView?.glyphImage = UIImage(named: "wifi_logo")
+            //        annotationView?.clusteringIdentifier = "identifier"
+            
+        }
         return annotationView
     }
     
