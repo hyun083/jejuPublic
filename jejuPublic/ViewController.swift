@@ -26,6 +26,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: self)
+        
+        //스크롤이 넘어가면 하단공백이 생기는것 방지
+        fpc.contentMode = .fitToBounds
 
         floatingPaneldesign()
         fpc.layout = CustomFloatingPanelLayout()
@@ -37,15 +40,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func addMapTrackingButton(){
         let buttonItem = MKUserTrackingButton(mapView: mapView)
-//        buttonItem.topAnchor = NSLayoutYAxisAnchor()
-//        buttonItem.leadingAnchor
-//        buttonItem.trailingAnchor
-//        buttonItem.bottomAnchor
         
-        buttonItem.frame = CGRect(origin: CGPoint(x:5,y:55), size: CGSize(width: 45, height: 45))
+        buttonItem.frame = CGRect(origin: CGPoint(x:10, y:45), size: CGSize(width: 45, height: 45))
+        buttonItem.backgroundColor = .systemFill
+        buttonItem.layer.cornerRadius = 7
+        buttonItem.layer.masksToBounds = true
         
         mapView.addSubview(buttonItem)
     }
+    
+    
     // MARK: - FloatingPanel custom
 
     func floatingPaneldesign(){
@@ -67,8 +71,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func floatingPanelDidMove(_ fpc: FloatingPanelController) {
         if fpc.isAttracting == false{
             let loc = fpc.surfaceLocation
-            let minY = fpc.surfaceLocation(for: .half).y - 1.0
-            let maxY = fpc.surfaceLocation(for: .tip).y + 1.0
+            let minY = fpc.surfaceLocation(for: .half).y - 3.0
+            let maxY = fpc.surfaceLocation(for: .tip).y + 3.0
             fpc.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY),maxY))
         }
     }
@@ -76,7 +80,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     // MARK: - mapView custom
 
     //위치이동 함수, 위도 경도의 자료형은 CLLocationDegrees이다.
-    func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String, _ macAddress:String){
+    func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String, _ categoryDetail:String){
         
         //좌표 설정
         let pLoc = CLLocationCoordinate2DMake(lat, long)
@@ -89,7 +93,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         pin.subtitle = installLocation
         pin.addressDong = addressDong
         pin.addressDetail = addressDetail
-        pin.macAddress = macAddress
+        pin.macAddress = categoryDetail
         
         //핀에 좌표넣기
         pin.coordinate = pLoc
@@ -138,7 +142,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
             if let contentVC = fpc.contentViewController as? ContentVC{
-                contentVC.updateView(eventAnnotation.title!, eventAnnotation.addressDong, eventAnnotation.addressDetail, eventAnnotation.macAddress)
+                contentVC.updateView(eventAnnotation.title!, "관할구역\n" + eventAnnotation.addressDong, eventAnnotation.addressDetail, "장소유형\n"+eventAnnotation.macAddress)
             }
         }
     }
@@ -154,6 +158,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         if annotation.isEqual(mapView.userLocation) {
             annotationView?.glyphText = "내위치"
             annotationView?.titleVisibility = MKFeatureVisibility(rawValue: 1)!
+            
         } else{
             annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
             annotationView?.glyphImage = UIImage(named: "wifi_logo")
@@ -192,10 +197,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                                     let location = CLLocationCoordinate2DMake((data["latitude"] as! NSString).doubleValue,(data["longitude"] as! NSString).doubleValue)
                                     let apName = data["apGroupName"] as! String
                                     let installlocation = data["installLocationDetail"] as! String
+                                    let categoryDetail = data["categoryDetail"] as! String
                                     
                                     //iu변경은 메인스레드에서 작업!
                                     DispatchQueue.main.async {
-                                        self.makePin(location.latitude, location.longitude, apName, installlocation,data["addressDong"] as! String, data["addressDetail"] as! String, data["macAddress"] as! String)
+                                        self.makePin(location.latitude, location.longitude, apName, installlocation,data["addressDong"] as! String, data["addressDetail"] as! String, categoryDetail)
                                     }
                                 }
                             }
