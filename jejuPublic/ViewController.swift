@@ -20,7 +20,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         super.viewDidLoad()
         urlrequest(count: 1)
         mapView.delegate = self
-        let userTrackingButton = MKUserTrackingBarButtonItem(mapView: mapView)
+        addMapTrackingButton()
         
         fpc = FloatingPanelController(delegate: self)
         let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
@@ -35,6 +35,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         showUserLocation()
     }
     
+    func addMapTrackingButton(){
+        let buttonItem = MKUserTrackingButton(mapView: mapView)
+//        buttonItem.topAnchor = NSLayoutYAxisAnchor()
+//        buttonItem.leadingAnchor
+//        buttonItem.trailingAnchor
+//        buttonItem.bottomAnchor
+        
+        buttonItem.frame = CGRect(origin: CGPoint(x:5,y:55), size: CGSize(width: 45, height: 45))
+        
+        mapView.addSubview(buttonItem)
+    }
     // MARK: - FloatingPanel custom
 
     func floatingPaneldesign(){
@@ -135,19 +146,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //annotationView custom
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
-        
-        if !annotation.isEqual(mapView.userLocation) {
-            if annotationView == nil {
-                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-            } else {
-                annotationView?.annotation = annotation
-            }
-
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        if annotation.isEqual(mapView.userLocation) {
+            annotationView?.glyphText = "내위치"
+            annotationView?.titleVisibility = MKFeatureVisibility(rawValue: 1)!
+        } else{
             annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
             annotationView?.glyphImage = UIImage(named: "wifi_logo")
-            //        annotationView?.clusteringIdentifier = "identifier"
-            
         }
+        //        annotationView?.clusteringIdentifier = "identifier"
         return annotationView
     }
     
