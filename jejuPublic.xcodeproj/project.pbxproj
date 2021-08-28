@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,6 @@
 		D2E786DA26A985A6007F4A16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2E786D826A985A6007F4A16 /* Main.storyboard */; };
 		D2E786DC26A985AA007F4A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2E786DB26A985AA007F4A16 /* Assets.xcassets */; };
 		D2E786DF26A985AA007F4A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2E786DD26A985AA007F4A16 /* LaunchScreen.storyboard */; };
-		D2E786E826B1B35B007F4A16 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = D2E786E726B1B35B007F4A16 /* PanModal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2E786E826B1B35B007F4A16 /* PanModal in Frameworks */,
 				4E8F03E3DB4AC50E19CD1EAE /* Pods_jejuPublic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,7 +122,6 @@
 			);
 			name = jejuPublic;
 			packageProductDependencies = (
-				D2E786E726B1B35B007F4A16 /* PanModal */,
 			);
 			productName = jejuPublic;
 			productReference = D2E786CF26A985A6007F4A16 /* jejuPublic.app */;
@@ -154,7 +151,6 @@
 			);
 			mainGroup = D2E786C626A985A6007F4A16;
 			packageReferences = (
-				D2E786E626B1B35B007F4A16 /* XCRemoteSwiftPackageReference "PanModal" */,
 			);
 			productRefGroup = D2E786D026A985A6007F4A16 /* Products */;
 			projectDirPath = "";
@@ -435,25 +431,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		D2E786E626B1B35B007F4A16 /* XCRemoteSwiftPackageReference "PanModal" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/slackhq/PanModal.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.7;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		D2E786E726B1B35B007F4A16 /* PanModal */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D2E786E626B1B35B007F4A16 /* XCRemoteSwiftPackageReference "PanModal" */;
-			productName = PanModal;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D2E786C726A985A6007F4A16 /* Project object */;
 }
