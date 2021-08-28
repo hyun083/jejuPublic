@@ -10,9 +10,8 @@
 		4E8F03E3DB4AC50E19CD1EAE /* Pods_jejuPublic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10715454F8E48ED9DCC0B9CD /* Pods_jejuPublic.framework */; };
 		D21E005B26CB683300C96909 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21E005A26CB683300C96909 /* CustomAnnotationView.swift */; };
 		D26A4DDC26C3D1E7000C4195 /* ContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */; };
-		D26A4DDE26C42E87000C4195 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDD26C42E87000C4195 /* EventAnnotation.swift */; };
+		D26A4DDE26C42E87000C4195 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */; };
 		D2A8487526CFB881008D0C9C /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */; };
-		D2A8487726D2B859008D0C9C /* CustomPanelBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A8487626D2B859008D0C9C /* CustomPanelBehavior.swift */; };
 		D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D226A985A6007F4A16 /* AppDelegate.swift */; };
 		D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D426A985A6007F4A16 /* SceneDelegate.swift */; };
 		D2E786D726A985A6007F4A16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D626A985A6007F4A16 /* ViewController.swift */; };
@@ -26,9 +25,8 @@
 		10715454F8E48ED9DCC0B9CD /* Pods_jejuPublic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jejuPublic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D21E005A26CB683300C96909 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVC.swift; sourceTree = "<group>"; };
-		D26A4DDD26C42E87000C4195 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
+		D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFloatingPanelLayout.swift; sourceTree = "<group>"; };
-		D2A8487626D2B859008D0C9C /* CustomPanelBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPanelBehavior.swift; sourceTree = "<group>"; };
 		D2E786CF26A985A6007F4A16 /* jejuPublic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jejuPublic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2E786D226A985A6007F4A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2E786D426A985A6007F4A16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,12 +83,11 @@
 			isa = PBXGroup;
 			children = (
 				D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */,
-				D26A4DDD26C42E87000C4195 /* EventAnnotation.swift */,
+				D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */,
 				D21E005A26CB683300C96909 /* CustomAnnotationView.swift */,
 				D2E786D226A985A6007F4A16 /* AppDelegate.swift */,
 				D2E786D426A985A6007F4A16 /* SceneDelegate.swift */,
 				D2E786D626A985A6007F4A16 /* ViewController.swift */,
-				D2A8487626D2B859008D0C9C /* CustomPanelBehavior.swift */,
 				D2E786D826A985A6007F4A16 /* Main.storyboard */,
 				D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */,
 				D2E786DB26A985AA007F4A16 /* Assets.xcassets */,
@@ -229,13 +226,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D26A4DDC26C3D1E7000C4195 /* ContentVC.swift in Sources */,
-				D26A4DDE26C42E87000C4195 /* EventAnnotation.swift in Sources */,
+				D26A4DDE26C42E87000C4195 /* CustomAnnotation.swift in Sources */,
 				D2E786D726A985A6007F4A16 /* ViewController.swift in Sources */,
 				D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */,
 				D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */,
 				D2A8487526CFB881008D0C9C /* CustomFloatingPanelLayout.swift in Sources */,
 				D21E005B26CB683300C96909 /* CustomAnnotationView.swift in Sources */,
-				D2A8487726D2B859008D0C9C /* CustomPanelBehavior.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

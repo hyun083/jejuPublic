@@ -18,6 +18,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     var fpc: FloatingPanelController!
     let userLoc = CLLocationManager()
     
+    //MARK: - viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        requestPermission()
+        urlrequest(count: 1)
+        mapView.delegate = self
+        addMapTrackingButton()
+        
+        fpc = FloatingPanelController(delegate: self)
+        let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
+        fpc.set(contentViewController: contentVC)
+        fpc.addPanel(toParent: self)
+        
+        //스크롤이 넘어가면 하단공백이 생기는것 방지
+        fpc.contentMode = .fitToBounds
+
+        floatingPaneldesign()
+        fpc.layout = CustomFloatingPanelLayout()
+        fpc.show()
+        
+        bannerView.rootViewController = self
+        fpc.surfaceView.addSubview(bannerView)
+        showUserLocation()
+
+    }
+    
+    //MARK: - googleAdmob
     //IDFA 가져오기
     func requestPermission() {
         ATTrackingManager.requestTrackingAuthorization { status in
@@ -40,60 +67,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
     }
     
+    //배너광고 생성
     private let bannerView: GADBannerView = {
         let banner = GADBannerView()
-        banner.adUnitID = "ca-app-pub-8323432995434914/9299069359"
+        //ca-app-pub-3940256099942544/6300978111
+        //내꺼ca-app-pub-8323432995434914/9299069359
+        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"
         banner.load(GADRequest())
         banner.backgroundColor = .secondarySystemBackground
         return banner
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        requestPermission()
-        urlrequest(count: 1)
-        mapView.delegate = self
-        addMapTrackingButton()
-        
-        fpc = FloatingPanelController(delegate: self)
-        let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
-        fpc.set(contentViewController: contentVC)
-        fpc.addPanel(toParent: self)
-        
-        //스크롤이 넘어가면 하단공백이 생기는것 방지
-        fpc.contentMode = .fitToBounds
-
-        floatingPaneldesign()
-        fpc.layout = CustomFloatingPanelLayout()
-        fpc.behavior = CustomPanelBehavior()
-        fpc.show()
-        
-        bannerView.rootViewController = self
-        fpc.surfaceView.addSubview(bannerView)
-        showUserLocation()
-        
-        
-    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         bannerView.frame = CGRect(x: 0, y: 175, width: view.frame.size.width, height: 50).integral
     }
     
-    func addMapTrackingButton(){
-        let buttonItem = MKUserTrackingButton(mapView: mapView)
-        
-        buttonItem.frame = CGRect(origin: CGPoint(x:10, y:mapView.frame.size.height*0.05 ), size: CGSize(width: 45, height: 45))
-        buttonItem.backgroundColor = .systemFill
-        buttonItem.layer.cornerRadius = 7
-        buttonItem.layer.masksToBounds = true
-        
-        mapView.addSubview(buttonItem)
-    }
-    
-    
     // MARK: - FloatingPanel custom
-
+    
+    //floatingPanel 디자인
     func floatingPaneldesign(){
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 15.0
@@ -121,16 +113,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     // MARK: - mapView custom
 
-    //위치이동 함수, 위도 경도의 자료형은 CLLocationDegrees이다.
+    //핀생성 함수
     func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String, _ categoryDetail:String){
         
         //좌표 설정
         let pLoc = CLLocationCoordinate2DMake(lat, long)
         
         //표시할 핀 생성
-        let pin = EventAnnotation()
+        let pin = CustomAnnotation()
         
-        //핀 이름 적기
+        //핀 정보 기입
         pin.title = apName
         pin.subtitle = installLocation
         pin.addressDong = addressDong
@@ -144,6 +136,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.addAnnotation(pin)
     }
     
+    //현재위치 표시
     func showUserLocation() {
         //아이폰으로부터 위치정보를 위임받는다.
         userLoc.delegate = self
@@ -159,6 +152,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         userLoc.startUpdatingLocation()
     }
+    
+    //유저트래킹 버튼 생성
+    func addMapTrackingButton(){
+        let buttonItem = MKUserTrackingButton(mapView: mapView)
+        
+        buttonItem.frame = CGRect(origin: CGPoint(x:10, y:mapView.frame.size.height*0.05 ), size: CGSize(width: 45, height: 45))
+        buttonItem.backgroundColor = .systemFill
+        buttonItem.layer.cornerRadius = 7
+        buttonItem.layer.masksToBounds = true
+        
+        mapView.addSubview(buttonItem)
+    }
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let loc = locations.last!.coordinate
@@ -181,10 +187,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     //annotation event
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
-        if let eventAnnotation = view.annotation as? EventAnnotation{
-            print("\(eventAnnotation.title)핀이 눌렸습니다.")
+        if let CustomAnnotation = view.annotation as? CustomAnnotation{
+            print("\(CustomAnnotation.title)핀이 눌렸습니다.")
             if let contentVC = fpc.contentViewController as? ContentVC{
-                contentVC.updateView(eventAnnotation.title!, "행정구역\n" + eventAnnotation.addressDong, eventAnnotation.addressDetail, "")
+                contentVC.updateView(CustomAnnotation.title!, "행정구역\n" + CustomAnnotation.addressDong, CustomAnnotation.addressDetail, "")
             }
         }
     }

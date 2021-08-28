@@ -19,14 +19,6 @@ class ContentVC: UIViewController{
     var addressDongText = "행정구역"
     var macAddressText = ""
     
-//    private let bannerView: GADBannerView = {
-//        let banner = GADBannerView()
-//        banner.adUnitID = "ca-app-pub-8323432995434914/9299069359"
-//        banner.load(GADRequest())
-//        banner.backgroundColor = .secondarySystemBackground
-//        return banner
-//    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("start viewDidLoad()")
@@ -36,8 +28,6 @@ class ContentVC: UIViewController{
         self.addressDetail.text = addressDetailText
         self.macAddress.text = macAddressText
         
-//        bannerView.rootViewController = self
-//        view.addSubview(bannerView)
     }
     
     func updateView(_ text1:String, _ text2:String, _ text3:String, _ text4:String) {
@@ -46,10 +36,5 @@ class ContentVC: UIViewController{
         self.addressDetail.text = text3
         self.macAddress.text = text4
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        bannerView.frame = CGRect(x: 0, y: self.view.frame.size.height-50, width: view.frame.size.width, height: 50).integral
-//    }
     
 }
