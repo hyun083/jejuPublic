@@ -4,7 +4,9 @@
 //
 //  Created by Hyun on 2021/07/22.
 //
-
+import GoogleMobileAds
+import AdSupport
+import AppTrackingTransparency
 import UIKit
 import MapKit
 import SwiftUI
@@ -16,8 +18,39 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     var fpc: FloatingPanelController!
     let userLoc = CLLocationManager()
     
+    //IDFA 가져오기
+    func requestPermission() {
+        ATTrackingManager.requestTrackingAuthorization { status in
+            switch status {
+            case .authorized:
+                // Tracking authorization dialog was shown
+                // and we are authorized
+                print("Authorized")
+                // Now that we are authorized we can get the IDFA
+                print(ASIdentifierManager.shared().advertisingIdentifier)
+            case .denied:
+                // Tracking authorization dialog was
+                // shown and permission is denied
+                print("Denied") case .notDetermined:
+                // Tracking authorization dialog has not been shown
+                print("Not Determined")
+            case .restricted: print("Restricted")
+            @unknown default: print("Unknown")
+            }
+        }
+    }
+    
+    private let bannerView: GADBannerView = {
+        let banner = GADBannerView()
+        banner.adUnitID = "ca-app-pub-8323432995434914/9299069359"
+        banner.load(GADRequest())
+        banner.backgroundColor = .secondarySystemBackground
+        return banner
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestPermission()
         urlrequest(count: 1)
         mapView.delegate = self
         addMapTrackingButton()
@@ -35,13 +68,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         fpc.behavior = CustomPanelBehavior()
         fpc.show()
         
+        bannerView.rootViewController = self
+        fpc.surfaceView.addSubview(bannerView)
         showUserLocation()
+        
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        bannerView.frame = CGRect(x: 0, y: 175, width: view.frame.size.width, height: 50).integral
     }
     
     func addMapTrackingButton(){
         let buttonItem = MKUserTrackingButton(mapView: mapView)
         
-        buttonItem.frame = CGRect(origin: CGPoint(x:10, y:45), size: CGSize(width: 45, height: 45))
+        buttonItem.frame = CGRect(origin: CGPoint(x:10, y:mapView.frame.size.height*0.05 ), size: CGSize(width: 45, height: 45))
         buttonItem.backgroundColor = .systemFill
         buttonItem.layer.cornerRadius = 7
         buttonItem.layer.masksToBounds = true
@@ -142,7 +184,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         if let eventAnnotation = view.annotation as? EventAnnotation{
             print("\(eventAnnotation.title)핀이 눌렸습니다.")
             if let contentVC = fpc.contentViewController as? ContentVC{
-                contentVC.updateView(eventAnnotation.title!, "관할구역\n" + eventAnnotation.addressDong, eventAnnotation.addressDetail, "장소유형\n"+eventAnnotation.macAddress)
+                contentVC.updateView(eventAnnotation.title!, "행정구역\n" + eventAnnotation.addressDong, eventAnnotation.addressDetail, "")
             }
         }
     }
@@ -156,14 +198,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             annotationView?.annotation = annotation
         }
         if annotation.isEqual(mapView.userLocation) {
-            annotationView?.glyphText = "내위치"
-            annotationView?.titleVisibility = MKFeatureVisibility(rawValue: 1)!
+//            annotationView?.glyphText = "내위치"
+//            annotationView?.markerTintColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+//            annotationView?.titleVisibility = MKFeatureVisibility(rawValue: 1)!
+            return nil
             
         } else{
             annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
             annotationView?.glyphImage = UIImage(named: "wifi_logo")
         }
-        //        annotationView?.clusteringIdentifier = "identifier"
+        
+//        annotationView?.clusteringIdentifier = "identifier"
         return annotationView
     }
     

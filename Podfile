@@ -6,6 +6,7 @@ target 'jejuPublic' do
   use_frameworks!
 
   pod 'FloatingPanel'
+  pod 'Google-Mobile-Ads-SDK'
 
   # Pods for jejuPublic
 
