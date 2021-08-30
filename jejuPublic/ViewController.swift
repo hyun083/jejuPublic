@@ -70,9 +70,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //배너광고 생성
     private let bannerView: GADBannerView = {
         let banner = GADBannerView()
-        //ca-app-pub-3940256099942544/6300978111
-        //내꺼ca-app-pub-8323432995434914/9299069359
-        banner.adUnitID = "ca-app-pub-3940256099942544/6300978111"
+        banner.adUnitID = "ca-app-pub-8323432995434914/9299069359"
         banner.load(GADRequest())
         banner.backgroundColor = .secondarySystemBackground
         return banner
