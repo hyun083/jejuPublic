@@ -70,6 +70,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //배너광고 생성
     private let bannerView: GADBannerView = {
         let banner = GADBannerView()
+        //testID: ca-app-pub-3940256099942544/6300978111
         banner.adUnitID = "ca-app-pub-8323432995434914/9299069359"
         banner.load(GADRequest())
         banner.backgroundColor = .secondarySystemBackground
@@ -179,8 +180,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         userLoc.stopUpdatingLocation()
     }
     
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-//        mapView.setUserTrackingMode(.followWithHeading, animated: true)
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        switch mode.rawValue{
+        case 0:
+            if let contentVC = fpc.contentViewController as? ContentVC{
+                contentVC.updateView("공공와이파이", "행정구역", "상세주소", "")
+            }
+        case 1:
+            let lat = userLoc.location?.coordinate.latitude
+            let long = userLoc.location?.coordinate.longitude
+            if let contentVC = fpc.contentViewController as? ContentVC{
+                contentVC.updateView("현재위치", "", findAddr(lat: lat!, long: long!), "")
+            }
+            print("findAddr(lat: lat!, long: long!):",findAddr(lat: lat!, long: long!))
+        case 2:
+            let lat = userLoc.location?.coordinate.latitude
+            let long = userLoc.location?.coordinate.latitude
+            if let contentVC = fpc.contentViewController as? ContentVC{
+                contentVC.updateView("현재위치", "", findAddr(lat: lat!, long: long!), "")
+            }
+        default:
+            print("default")
+        }
     }
     
     //annotation event
@@ -214,6 +235,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
 //        annotationView?.clusteringIdentifier = "identifier"
         return annotationView
+    }
+    
+    // MARK: - 위도, 경도에 따른 주소 찾기
+    func findAddr(lat: CLLocationDegrees, long: CLLocationDegrees) -> String{
+        let findLocation = CLLocation(latitude: lat, longitude: long)
+        let geocoder = CLGeocoder()
+        let locale = Locale(identifier: "Ko-kr")
+        var result = "초기값"
+        
+        geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale, completionHandler: {(placemarks, error) -> Void in
+            if let address: [CLPlacemark] = placemarks {
+                var myAdd: String = ""
+                if let area: String = address.last?.locality{
+                    myAdd += area
+                    print(myAdd)
+                }
+                if let name: String = address.last?.name {
+                    myAdd += " "
+                    myAdd += name
+                    print(myAdd)
+                }
+                
+            }
+        })
+        print(result,"type:",type(of: result))
+        return result
     }
     
     // MARK: - urlrequest
