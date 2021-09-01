@@ -164,7 +164,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.addSubview(buttonItem)
     }
     
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let loc = locations.last!.coordinate
         print("내위치 갱신 완료: \(loc.latitude), \(loc.longitude)")
@@ -189,16 +188,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         case 1:
             let lat = userLoc.location?.coordinate.latitude
             let long = userLoc.location?.coordinate.longitude
-            if let contentVC = fpc.contentViewController as? ContentVC{
-                contentVC.updateView("현재위치", "", findAddr(lat: lat!, long: long!), "")
-            }
-            print("findAddr(lat: lat!, long: long!):",findAddr(lat: lat!, long: long!))
+            findAddr(lat: lat!, long: long!)
         case 2:
             let lat = userLoc.location?.coordinate.latitude
-            let long = userLoc.location?.coordinate.latitude
-            if let contentVC = fpc.contentViewController as? ContentVC{
-                contentVC.updateView("현재위치", "", findAddr(lat: lat!, long: long!), "")
-            }
+            let long = userLoc.location?.coordinate.longitude
+            findAddr(lat: lat!, long: long!)
         default:
             print("default")
         }
@@ -237,30 +231,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         return annotationView
     }
     
-    // MARK: - 위도, 경도에 따른 주소 찾기
-    func findAddr(lat: CLLocationDegrees, long: CLLocationDegrees) -> String{
+    //present current address
+    func findAddr(lat: CLLocationDegrees, long: CLLocationDegrees){
         let findLocation = CLLocation(latitude: lat, longitude: long)
         let geocoder = CLGeocoder()
         let locale = Locale(identifier: "Ko-kr")
-        var result = "초기값"
         
         geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale, completionHandler: {(placemarks, error) -> Void in
             if let address: [CLPlacemark] = placemarks {
                 var myAdd: String = ""
                 if let area: String = address.last?.locality{
                     myAdd += area
-                    print(myAdd)
                 }
                 if let name: String = address.last?.name {
-                    myAdd += " "
-                    myAdd += name
-                    print(myAdd)
+                    myAdd += " " + name
                 }
-                
+                if let contentVC = self.fpc.contentViewController as? ContentVC{
+                    contentVC.updateView("현재위치", "", myAdd, "")
+                }
             }
         })
-        print(result,"type:",type(of: result))
-        return result
     }
     
     // MARK: - urlrequest
