@@ -21,7 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //MARK: - viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestPermission()
+//        requestPermission()   
         urlrequest(count: 1)
         mapView.delegate = self
         addMapTrackingButton()
@@ -77,6 +77,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         return banner
     }()
     
+    //광고위치,사이즈 설정
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         bannerView.frame = CGRect(x: 0, y: 175, width: view.frame.size.width, height: 50).integral
@@ -242,9 +243,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 var myAdd: String = ""
                 if let area: String = address.last?.locality{
                     myAdd += area
+                    print("area:",area)
                 }
-                if let name: String = address.last?.name {
-                    myAdd += " " + name
+                if let subArea: String = address.last?.subLocality{
+                    myAdd += " " + subArea
+                    print("subArea:",subArea)
+                }
+                if let subThrough:String = address.last?.thoroughfare{
+                    myAdd += " " + subThrough
+                    print("subThrough:",subThrough)
                 }
                 if let contentVC = self.fpc.contentViewController as? ContentVC{
                     contentVC.updateView("현재위치", "", myAdd, "")
