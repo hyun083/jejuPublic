@@ -241,21 +241,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale, completionHandler: {(placemarks, error) -> Void in
             if let address: [CLPlacemark] = placemarks {
                 var myAdd: String = ""
+                
+                if let prov: String = address.last?.administrativeArea{
+                    myAdd += prov
+                    print("prov:",prov)
+                }
+                
                 if let area: String = address.last?.locality{
-                    myAdd += area
+                    myAdd += " " + area
                     print("area:",area)
                 }
+                
                 if let subArea: String = address.last?.subLocality{
                     myAdd += " " + subArea
                     print("subArea:",subArea)
                 }
-                if let subThrough:String = address.last?.thoroughfare{
-                    myAdd += " " + subThrough
-                    print("subThrough:",subThrough)
-                }
+               
                 if let contentVC = self.fpc.contentViewController as? ContentVC{
                     contentVC.updateView("현재위치", "", myAdd, "")
                 }
+                
             }
         })
     }
