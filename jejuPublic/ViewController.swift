@@ -138,19 +138,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     //현재위치 표시
     func showUserLocation() {
-        //아이폰으로부터 위치정보를 위임받는다.
-        userLoc.delegate = self
+        let status = CLLocationManager.authorizationStatus()
+        if status == CLAuthorizationStatus.authorizedWhenInUse{
+            print("권한정보",status.rawValue)
+            //아이폰으로부터 위치정보를 위임받는다.
+            userLoc.delegate = self
 
-        //위치정보사용 승인요청보내기 앱실행 최초 한번만 뜬다.
-        userLoc.requestWhenInUseAuthorization()
+            //위치정보사용 승인요청보내기 앱실행 최초 한번만 뜬다.
+            userLoc.requestWhenInUseAuthorization()
 
-        //gps신호받기 시작.
-        userLoc.startUpdatingLocation()
+            //gps신호받기 시작.
+            userLoc.startUpdatingLocation()
 
-        //지도에서 내위치 보이기
-        mapView.showsUserLocation = true
+            //지도에서 내위치 보이기
+            mapView.showsUserLocation = true
+            
+            userLoc.startUpdatingLocation()
+        } else{
+            print("권한정보 없음",status.rawValue)
+        }
         
-        userLoc.startUpdatingLocation()
     }
     
     //유저트래킹 버튼 생성
@@ -181,21 +188,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-        switch mode.rawValue{
-        case 0:
-            if let contentVC = fpc.contentViewController as? ContentVC{
-                contentVC.updateView("공공와이파이", "행정구역", "상세주소", "")
+        let status = CLLocationManager.authorizationStatus()
+        if status == CLAuthorizationStatus.authorizedWhenInUse{
+            print("권한정보",status.rawValue)
+            switch mode.rawValue{
+            case 0:
+                if let contentVC = fpc.contentViewController as? ContentVC{
+                    contentVC.updateView("공공와이파이", "행정구역", "상세주소", "")
+                }
+            case 1:
+                let lat = userLoc.location?.coordinate.latitude
+                let long = userLoc.location?.coordinate.longitude
+                findAddr(lat: lat!, long: long!)
+            case 2:
+                let lat = userLoc.location?.coordinate.latitude
+                let long = userLoc.location?.coordinate.longitude
+                findAddr(lat: lat!, long: long!)
+            default:
+                print("default")
             }
-        case 1:
-            let lat = userLoc.location?.coordinate.latitude
-            let long = userLoc.location?.coordinate.longitude
-            findAddr(lat: lat!, long: long!)
-        case 2:
-            let lat = userLoc.location?.coordinate.latitude
-            let long = userLoc.location?.coordinate.longitude
-            findAddr(lat: lat!, long: long!)
-        default:
-            print("default")
+        } else{
+            print("권한정보없음",status.rawValue)
         }
     }
     
