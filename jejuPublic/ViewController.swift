@@ -21,7 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //MARK: - viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        requestPermission()   
+        requestPermission()
         urlrequest(count: 1)
         mapView.delegate = self
         addMapTrackingButton()
@@ -41,7 +41,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         bannerView.rootViewController = self
         fpc.surfaceView.addSubview(bannerView)
         showUserLocation()
-
+        
+        
     }
     
     //MARK: - googleAdmob
@@ -187,6 +188,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         userLoc.stopUpdatingLocation()
     }
     
+    //user trackingbutton event
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         let status = CLLocationManager.authorizationStatus()
         if status == CLAuthorizationStatus.authorizedWhenInUse{
@@ -209,6 +211,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             }
         } else{
             print("권한정보없음",status.rawValue)
+            let alertController = UIAlertController(title: "위치권한 설정이 필요합니다.", message: "앱 설정 화면으로 이동하시겠습니까? \n 위치 - 앱을 사용하는 동안", preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title: "네", style: .default, handler: {(action) -> Void in if let appSettings = URL(string: UIApplication.openSettingsURLString){
+                UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)}
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "아니요", style: .destructive, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
