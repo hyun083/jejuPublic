@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -70,12 +69,6 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="macAdress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFm-4R-Npo">
-                                            <rect key="frame" x="8" y="162.66666666666666" width="359" height="20.333333333333343"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="xfG-Bl-XtT" firstAttribute="leading" secondItem="sek-RG-KkT" secondAttribute="leading" constant="8" id="0p0-nd-3Ef"/>
@@ -84,12 +77,9 @@
                                         <constraint firstItem="7a6-rD-eqy" firstAttribute="trailing" secondItem="sek-RG-KkT" secondAttribute="trailing" constant="-8" id="DW3-cM-n9z"/>
                                         <constraint firstItem="xfG-Bl-XtT" firstAttribute="top" secondItem="7a6-rD-eqy" secondAttribute="bottom" multiplier="1.3" constant="8" id="EZZ-el-P9q"/>
                                         <constraint firstItem="CSJ-D4-JZN" firstAttribute="top" secondItem="sek-RG-KkT" secondAttribute="top" constant="16" id="Gkw-bX-j4g"/>
-                                        <constraint firstItem="sFm-4R-Npo" firstAttribute="leading" secondItem="sek-RG-KkT" secondAttribute="leading" constant="8" id="MPN-K3-Ylb"/>
-                                        <constraint firstItem="sFm-4R-Npo" firstAttribute="trailing" secondItem="sek-RG-KkT" secondAttribute="trailing" constant="-8" id="NHl-jV-M2J"/>
                                         <constraint firstItem="CSJ-D4-JZN" firstAttribute="trailing" secondItem="sek-RG-KkT" secondAttribute="trailing" constant="-8" id="dX2-HD-bVB"/>
                                         <constraint firstItem="7a6-rD-eqy" firstAttribute="top" secondItem="CSJ-D4-JZN" secondAttribute="bottom" multiplier="1.2" constant="9" id="h7U-Gz-g0Q"/>
                                         <constraint firstItem="CSJ-D4-JZN" firstAttribute="leading" secondItem="sek-RG-KkT" secondAttribute="leading" constant="8" id="qNX-ZK-3XL"/>
-                                        <constraint firstItem="sFm-4R-Npo" firstAttribute="top" secondItem="xfG-Bl-XtT" secondAttribute="bottom" multiplier="1.2" constant="8" id="skc-VK-dDd"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="prominent"/>
@@ -109,7 +99,6 @@
                         <outlet property="addressDetail" destination="7a6-rD-eqy" id="H8P-L4-SDC"/>
                         <outlet property="addressDong" destination="xfG-Bl-XtT" id="KBb-ht-UVl"/>
                         <outlet property="apGroupName" destination="CSJ-D4-JZN" id="yhv-Ne-YZe"/>
-                        <outlet property="macAddress" destination="sFm-4R-Npo" id="ChQ-Zn-ktx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHt-wU-gd4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
