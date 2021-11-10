@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4E8F03E3DB4AC50E19CD1EAE /* Pods_jejuPublic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10715454F8E48ED9DCC0B9CD /* Pods_jejuPublic.framework */; };
-		D21E005B26CB683300C96909 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21E005A26CB683300C96909 /* CustomAnnotationView.swift */; };
 		D26A4DDC26C3D1E7000C4195 /* ContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */; };
 		D26A4DDE26C42E87000C4195 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */; };
 		D2A8487526CFB881008D0C9C /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */; };
@@ -22,7 +21,6 @@
 
 /* Begin PBXFileReference section */
 		10715454F8E48ED9DCC0B9CD /* Pods_jejuPublic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jejuPublic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D21E005A26CB683300C96909 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVC.swift; sourceTree = "<group>"; };
 		D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFloatingPanelLayout.swift; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 			children = (
 				D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */,
 				D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */,
-				D21E005A26CB683300C96909 /* CustomAnnotationView.swift */,
 				D2E786D226A985A6007F4A16 /* AppDelegate.swift */,
 				D2E786D426A985A6007F4A16 /* SceneDelegate.swift */,
 				D2E786D626A985A6007F4A16 /* ViewController.swift */,
@@ -227,7 +224,6 @@
 				D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */,
 				D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */,
 				D2A8487526CFB881008D0C9C /* CustomFloatingPanelLayout.swift in Sources */,
-				D21E005B26CB683300C96909 /* CustomAnnotationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

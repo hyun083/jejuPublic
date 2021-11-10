@@ -21,27 +21,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //MARK: - viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
+        //사용자 맞춤 광고 권한 요청
         requestPermission()
         
-        urlrequest(count: 1)
+        //제주 데이터 허브 api 요청 매개변수로 갱신날짜를 입력한다.
+        urlrequest(version: "20200525")
         
+        //맵뷰의 권한을 해당 뷰컨트롤러로 위임
         mapView.delegate = self
         addMapTrackingButton()
         
+        //선택한 와이파이의 정보를 표시하기위한 FloatingPanel 생성
         fpc = FloatingPanelController(delegate: self)
         let contentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ContentVC")
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: self)
         
-        //스크롤이 넘어가면 하단공백이 생기는것 방지
+        //FlotingPanel의 스크롤이 넘어가면 하단공백이 생기는것 방지
         fpc.contentMode = .fitToBounds
         floatingPanelDesign()
         fpc.layout = CustomFloatingPanelLayout()
         
+        //광고화면 배너 추가
         bannerView.rootViewController = self
         fpc.surfaceView.addSubview(bannerView)
         
+        //사용자 위치 정보 표시
         showUserLocation()
+        //FlotingPanel 표시
         fpc.show()
     }
     
@@ -59,7 +66,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             case .denied:
                 // Tracking authorization dialog was
                 // shown and permission is denied
-                print("Denied") case .notDetermined:
+                print("Denied")
+            case .notDetermined:
                 // Tracking authorization dialog has not been shown
                 print("Not Determined")
             case .restricted: print("Restricted")
@@ -113,65 +121,60 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     // MARK: - mapView custom
-    //create annotation on map
-    func makePin(_ lat:CLLocationDegrees, _ long:CLLocationDegrees, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String){
-        
-        //좌표 설정
-        let pLoc = CLLocationCoordinate2DMake(lat, long)
-        
+    //맵 핀 생성
+    func makePin(_ location:CLLocationCoordinate2D, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String){
         //표시할 핀 생성
         let pin = CustomAnnotation()
         
-        //핀 정보 기입
+        //핀에 정보 기입
         pin.title = apName
         pin.subtitle = installLocation
         pin.addressDong = addressDong
         pin.addressDetail = addressDetail
-        
-        //핀에 좌표넣기
-        pin.coordinate = pLoc
+        pin.coordinate = location
         
         //지도에 핀 그리기
         mapView.addAnnotation(pin)
     }
     
-    //annotation click event
+    //핀 클릭 이벤트 처리
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let CustomAnnotation = view.annotation as? CustomAnnotation{
             print("\(CustomAnnotation.title)핀이 눌렸습니다.")
+            //핀을 눌렀을 때 FloatingPanel에 추가정보 표시를 위해 updateView함수 호출
             if let contentVC = fpc.contentViewController as? ContentVC{
                 contentVC.updateView(CustomAnnotation.title!, "행정구역\n" + CustomAnnotation.addressDong, CustomAnnotation.addressDetail)
             }
         }
     }
     
-    //annotationView custom
+    //핀 로고 변경
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        //MKMarkerAnnotationView 생성
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
         if annotationView == nil {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
         } else {
             annotationView?.annotation = annotation
         }
+        //사용자 위치 핀은 변경하지 않는다.
         if annotation.isEqual(mapView.userLocation) {
-//            annotationView?.glyphText = "내위치"
-//            annotationView?.markerTintColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-//            annotationView?.titleVisibility = MKFeatureVisibility(rawValue: 1)!
             return nil
-            
         } else{
+            //색상은 주황색 적용, 따로 첨부한 와이파이 로고를 glyphImage로 변환하여 적용
             annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
             annotationView?.glyphImage = UIImage(named: "wifi_logo")
         }
-        
 //        annotationView?.clusteringIdentifier = "identifier"
         return annotationView
     }
     
-    // MARK:- user location
-    //get user current location
+    // MARK: - user location
+    //사용자의 현재위치 수신
     func showUserLocation() {
+        //사용자의 위치권한정보 저장
         let status = CLLocationManager.authorizationStatus()
+        //사용자가 위치사용권한에 동의했을 시
         if status == CLAuthorizationStatus.authorizedWhenInUse{
             print("권한정보",status.rawValue)
             //아이폰으로부터 위치정보를 위임받는다.
@@ -186,13 +189,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             //지도에서 내위치 보이기
             mapView.showsUserLocation = true
             
+            //사용자의 위치 갱신. locationManager()함수를 호출한다.
             userLoc.startUpdatingLocation()
         } else{
             print("권한정보 없음",status.rawValue)
         }
     }
     
-    //presentation user current location
+    //사용자의 현재위치를 지도에 표시
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let loc = locations.last!.coordinate
         print("내위치 갱신 완료: \(loc.latitude), \(loc.longitude)")
@@ -202,131 +206,144 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //지역 설정
         let pRegion = MKCoordinateRegion(center: loc, span: pZoom)
         
+        //사용자의 위치를 지도의 가운데로 이동
         mapView.setRegion(pRegion, animated: true)
         
         //위치갱신후 멈춰주어야 바로 동작한다.
         userLoc.stopUpdatingLocation()
     }
-    
-    //create user trackgin button
+    // MARK: - user tracking
+    //유저 트래킹 버튼 생성
     func addMapTrackingButton(){
+        //버튼객체 생성
         let buttonItem = MKUserTrackingButton(mapView: mapView)
         
+        //버튼의 위치, 사이즈 색상, 곡률 설정
         buttonItem.frame = CGRect(origin: CGPoint(x:10, y:mapView.frame.size.height*0.05 ), size: CGSize(width: 45, height: 45))
         buttonItem.backgroundColor = .systemFill
         buttonItem.layer.cornerRadius = 7
         buttonItem.layer.masksToBounds = true
         
+        //지도에 버튼 추가
         mapView.addSubview(buttonItem)
     }
     
-    //user trackingbutton event, related on Authorization
+    //위치정보 권한에 따른 트래킹버튼 이벤트 처리
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        //사용자의 위치권한 정보를 저장
         let status = CLLocationManager.authorizationStatus()
+        //만약 사용자가 '앱 사용중 동의'를 선택했다면
         if status == CLAuthorizationStatus.authorizedWhenInUse{
             print("권한정보",status.rawValue)
+            //트래킹모드 상태에 따른 정보 표시
             switch mode.rawValue{
+            //트래킹 모드 중지
             case 0:
+                //FloatingPanel 초기값으로 변경
                 if let contentVC = fpc.contentViewController as? ContentVC{
                     contentVC.updateView("공공와이파이", "행정구역", "상세주소")
                 }
+            //현재위치 모드
             case 1:
-                let lat = userLoc.location?.coordinate.latitude
-                let long = userLoc.location?.coordinate.longitude
-                findAddr(lat: lat!, long: long!)
+                //사용자의 위도 경도를 매개변수로 주소표시함수 호출
+                findAddr(userLoc.location!)
+            //나침반 모드
             case 2:
-                let lat = userLoc.location?.coordinate.latitude
-                let long = userLoc.location?.coordinate.longitude
-                findAddr(lat: lat!, long: long!)
+                //사용자의 위도 경도를 매개변수로 주소표시함수 호출
+                findAddr(userLoc.location!)
             default:
                 print("default")
             }
+        //만약 사용자가 위치권한 사용 거부를 선택한 상태라면
         } else{
             print("권한정보없음",status.rawValue)
+            //알림 생성
             let alertController = UIAlertController(title: "위치권한 설정이 필요합니다.", message: "앱 설정 화면으로 이동하시겠습니까? \n 위치 - 앱을 사용하는 동안", preferredStyle: .alert)
             
+            //네버튼 생성, 사용자가 누를 시 설정앱 - 위치권한 메뉴로 진입
             alertController.addAction(UIAlertAction(title: "네", style: .default, handler: {(action) -> Void in if let appSettings = URL(string: UIApplication.openSettingsURLString){
                 UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)}
             }))
-            
+    
+            //아니요 버튼 생성
             alertController.addAction(UIAlertAction(title: "아니요", style: .destructive, handler: nil))
+            //알림 띄우기
             self.present(alertController, animated: true, completion: nil)
         }
     }
     
-    //present current address
-    func findAddr(lat: CLLocationDegrees, long: CLLocationDegrees){
-        let findLocation = CLLocation(latitude: lat, longitude: long)
-        let geocoder = CLGeocoder()
+    //사용자의 현재위치 주소 표시
+    func findAddr(_ location:CLLocation){
+        let findLocation = location
         let locale = Locale(identifier: "Ko-kr")
+        let geocoder = CLGeocoder()
         
+        //지오코더 사용 국가체계에 맞는 주소정보를 반환해준다.
         geocoder.reverseGeocodeLocation(findLocation, preferredLocale: locale, completionHandler: {(placemarks, error) -> Void in
             if let address: [CLPlacemark] = placemarks {
                 var myAdd: String = ""
-                
-                //provance
+                //행정구역 ex)경기도,경상도,강원도...
                 if let prov: String = address.last?.administrativeArea{
                     myAdd += prov
                     print("prov:",prov)
                 }
-                
-                //city
+                //도시 ex)제주시, 서귀포시...
                 if let area: String = address.last?.locality{
                     myAdd += " " + area
                     print("area:",area)
                 }
-                
-                //area
+                //읍면동
                 if let subArea: String = address.last?.subLocality{
                     myAdd += " " + subArea
                     print("subArea:",subArea)
                 }
-               
-                //present
+                //FloatingPanel에 표시
                 if let contentVC = self.fpc.contentViewController as? ContentVC{
                     contentVC.updateView("현재위치", "", myAdd)
                 }
-                
             }
         })
     }
     
     // MARK: - urlrequest. open API
 
-    func urlrequest(count: Int) {
+    func urlrequest(version: String) {
         
-        for i in count...22{
-            //jeju datahub open api
-            let url = URL(string: "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj?number="+String(i)+"&limit=100&baseDate=20200525")!
-            
+        for i in 1...22{
+            //제주 데이터 허브 api 주소 URL변수로 담기
+            let url = URL(string: "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj?number="+String(i)+"&limit=100&baseDate="+version)!
+            //URL 요청. 반환된 응답과 데이터는 각각 변수에 담는다.
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 guard let data = data else {return}
                 
                 let response = response as? HTTPURLResponse
                 
-                //statusCode:200 (request complete)
+                //응답상태 200일경우 (응답이 정상수신된 경우)
                 if response?.statusCode == 200{
-                    let jsonString = (String(data: data, encoding: .utf8)!)
+                    //json자료를 담기위한 [String:Any]타입의 딕셔너리 생성
+                    var jsonDicT:[String:Any]?
+                    //수신된 json형태의 데이터를 [String:Any] 딕셔너리형태로 저장
+                    jsonDicT = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
                     
-                    let jsonDataT:Data? = jsonString.data(using: .utf8)
-                    
-                    if let jsonData =  jsonDataT{
-                        var jsonDicT:[String:Any]?
-                        jsonDicT = try! JSONSerialization.jsonObject(with: jsonData, options: []) as! [String:Any]
-                        
-                        if let jsonDic = jsonDicT{
-                            print(i, jsonDic["hasMore"]! as! Bool)
-                            
-                            if let dataArr = jsonDic["data"] as? [[String:Any]]{
-                                for data in dataArr{
-                                    let location = CLLocationCoordinate2DMake((data["latitude"] as! NSString).doubleValue,(data["longitude"] as! NSString).doubleValue)
-                                    let apName = data["apGroupName"] as! String
-                                    let installlocation = data["installLocationDetail"] as! String
-                                    
-                                    //iu change must be in main thread
-                                    DispatchQueue.main.async {
-                                        self.makePin(location.latitude, location.longitude, apName, installlocation,data["addressDong"] as! String, data["addressDetail"] as! String)
-                                    }
+                    //반환되는 데이터는 "totCnt":Int, "hasMore":Bool, "data":[[String:String]]형태와 같다.
+                    if let jsonDic = jsonDicT{
+                        //자료가 몇번째 자료인지, 뒤에 이어지는 자료가 더 있는지 모니터링
+                        print(i, jsonDic["hasMore"]! as! Bool)
+                        //필요한 자료들은 "data"에 해당하는 [String:String] json형태의 배열속에 있다.
+                        if let dataArr = jsonDic["data"] as? [[String:Any]]{
+                            //배열 속 데이터 순회
+                            for data in dataArr{
+                                //위도, 경도를 확인후 좌표 자료형으로 변환하여 저장, 와이파이 이름 저장, 와이파이 설치 장소 저장
+                                let location = CLLocationCoordinate2DMake((data["latitude"] as! NSString).doubleValue,(data["longitude"] as! NSString).doubleValue)
+                                let apName = data["apGroupName"] as! String
+                                let installlocation = data["installLocationDetail"] as! String
+                                let addressDong = data["addressDong"] as! String
+                                let addressDetail = data["addressDetail"] as! String
+                                
+                                //현재는 비동기 요청이다. iu변경 작업은 메인스레드에서 작업해야한다.
+                                DispatchQueue.main.async {
+                                    //json 데이터에서 뽑아낸 자료들을 매개변수로 핀 생성 함수 호출
+                                    self.makePin(location, apName, installlocation,addressDong, addressDetail)
                                 }
                             }
                         }
