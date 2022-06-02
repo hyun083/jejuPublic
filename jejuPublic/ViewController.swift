@@ -11,6 +11,8 @@ import UIKit
 import MapKit
 import SwiftUI
 import FloatingPanel
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FloatingPanelControllerDelegate{
 
@@ -327,7 +329,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                     
                     //반환되는 데이터는 "totCnt":Int, "hasMore":Bool, "data":[[String:String]]형태와 같다.
                     if let jsonDic = jsonDicT{
-                        //자료가 몇번째 자료인지, 뒤에 이어지는 자료가 더 있는지 모니터링
+                        //자료가 몇번째 자료인지, 뒤에 이어지는 자료가 더 있는지 확인
                         print(i, jsonDic["hasMore"]! as! Bool)
                         //필요한 자료들은 "data"에 해당하는 [String:String] json형태의 배열속에 있다.
                         if let dataArr = jsonDic["data"] as? [[String:Any]]{
@@ -340,7 +342,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                                 let addressDong = data["addressDong"] as! String
                                 let addressDetail = data["addressDetail"] as! String
                                 
-                                //현재는 비동기 요청이다. iu변경 작업은 메인스레드에서 작업해야한다.
+                                //현재는 비동기 요청이다. ui변경 작업은 메인스레드에서 작업해야한다.
                                 DispatchQueue.main.async {
                                     //json 데이터에서 뽑아낸 자료들을 매개변수로 핀 생성 함수 호출
                                     self.makePin(location, apName, installlocation,addressDong, addressDetail)

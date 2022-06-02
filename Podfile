@@ -7,6 +7,8 @@ target 'jejuPublic' do
 
   pod 'FloatingPanel'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
 
   # Pods for jejuPublic
 
