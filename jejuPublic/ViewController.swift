@@ -19,6 +19,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     @IBOutlet var mapView: MKMapView!
     var fpc: FloatingPanelController!
     let userLoc = CLLocationManager()
+    var disposebag = DisposeBag()
     
     //MARK: - viewDidLoad()
     override func viewDidLoad() {
@@ -167,7 +168,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
             annotationView?.glyphImage = UIImage(named: "wifi_logo")
         }
-//        annotationView?.clusteringIdentifier = "identifier"
+        annotationView?.clusteringIdentifier = "myAnnotation"
         return annotationView
     }
     
@@ -310,51 +311,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     // MARK: - urlrequest. open API
 
     func urlrequest(version: String) {
-        
-        for i in 1...22{
-            //제주 데이터 허브 api 주소 URL변수로 담기
-            let url = URL(string: "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj?number="+String(i)+"&limit=100&baseDate="+version)!
-            //URL 요청. 반환된 응답과 데이터는 각각 변수에 담는다.
-            let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-                guard let data = data else {return}
-                
-                let response = response as? HTTPURLResponse
-                
-                //응답상태 200일경우 (응답이 정상수신된 경우)
-                if response?.statusCode == 200{
-                    //json자료를 담기위한 [String:Any]타입의 딕셔너리 생성
-                    var jsonDicT:[String:Any]?
-                    //수신된 json형태의 데이터를 [String:Any] 딕셔너리형태로 저장
-                    jsonDicT = try! JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
-                    
-                    //반환되는 데이터는 "totCnt":Int, "hasMore":Bool, "data":[[String:String]]형태와 같다.
-                    if let jsonDic = jsonDicT{
-                        //자료가 몇번째 자료인지, 뒤에 이어지는 자료가 더 있는지 확인
-                        print(i, jsonDic["hasMore"]! as! Bool)
-                        //필요한 자료들은 "data"에 해당하는 [String:String] json형태의 배열속에 있다.
-                        if let dataArr = jsonDic["data"] as? [[String:Any]]{
-                            //배열 속 데이터 순회
-                            for data in dataArr{
-                                //위도, 경도를 확인후 좌표 자료형으로 변환하여 저장, 와이파이 이름 저장, 와이파이 설치 장소 저장
-                                let location = CLLocationCoordinate2DMake((data["latitude"] as! NSString).doubleValue,(data["longitude"] as! NSString).doubleValue)
-                                let apName = data["apGroupName"] as! String
-                                let installlocation = data["installLocationDetail"] as! String
-                                let addressDong = data["addressDong"] as! String
-                                let addressDetail = data["addressDetail"] as! String
-                                
-                                //현재는 비동기 요청이다. ui변경 작업은 메인스레드에서 작업해야한다.
-                                DispatchQueue.main.async {
-                                    //json 데이터에서 뽑아낸 자료들을 매개변수로 핀 생성 함수 호출
-                                    self.makePin(location, apName, installlocation,addressDong, addressDetail)
-                                }
-                            }
-                        }
-                    }
+        print("btn click")
+        let baseDate = version
+        Observable.range(start: 1, count: 22)
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .default))
+            .map{number in "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj?number=\(number)&limit=100&baseDate=\(baseDate)"}
+            .map{ URL(string: $0)! }
+            .map{ try Data(contentsOf: $0) }
+            .map{ try JSONSerialization.jsonObject(with:$0, options:[]) as! [String:Any] }
+            .map{ $0["data"] }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { json in
+                for data in json! as! [[String:Any]]{
+                    let location = CLLocationCoordinate2D(latitude: (data["latitude"] as! NSString).doubleValue, longitude: (data["longitude"] as! NSString).doubleValue)
+                    let apName = data["apGroupName"] as! String
+                    let installLocation = data["installLocationDetail"] as! String
+                    let addressDong = data["addressDong"] as! String
+                    let addressDetail = data["addressDetail"] as! String
+                    self.makePin(location, apName, installLocation, addressDong, addressDetail)
                 }
-            }
-            task.resume()
-        }
-        
+            }, onCompleted: {
+                print("completed")
+            })
+            .disposed(by: disposebag)
     }
 }
 
