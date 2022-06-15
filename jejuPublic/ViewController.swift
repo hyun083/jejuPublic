@@ -13,6 +13,7 @@ import SwiftUI
 import FloatingPanel
 import RxSwift
 import RxCocoa
+import RxAlamofire
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FloatingPanelControllerDelegate{
 
@@ -27,8 +28,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //사용자 맞춤 광고 권한 요청
         requestPermission()
         
-        //제주 데이터 허브 api 요청 매개변수로 갱신날짜를 입력한다.
-        urlrequest(version: "20200525")
+        //제주 데이터 허브 api 요청. 매개변수로 갱신날짜를 입력한다.
+        urlrequest(baseDate: 20200525)
         
         //맵뷰의 권한을 해당 뷰컨트롤러로 위임
         mapView.delegate = self
@@ -167,8 +168,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             //색상은 주황색 적용, 따로 첨부한 와이파이 로고를 glyphImage로 변환하여 적용
             annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
             annotationView?.glyphImage = UIImage(named: "wifi_logo")
+//            annotationView?.clusteringIdentifier = "APAnnotation"
         }
-        annotationView?.clusteringIdentifier = "myAnnotation"
         return annotationView
     }
     
@@ -308,32 +309,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         })
     }
     
-    // MARK: - urlrequest. open API
+    // MARK: - urlrequest. API
 
-    func urlrequest(version: String) {
-        print("btn click")
-        let baseDate = version
-        Observable.range(start: 1, count: 22)
-            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .default))
-            .map{number in "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj?number=\(number)&limit=100&baseDate=\(baseDate)"}
-            .map{ URL(string: $0)! }
-            .map{ try Data(contentsOf: $0) }
-            .map{ try JSONSerialization.jsonObject(with:$0, options:[]) as! [String:Any] }
-            .map{ $0["data"] }
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { json in
-                for data in json! as! [[String:Any]]{
-                    let location = CLLocationCoordinate2D(latitude: (data["latitude"] as! NSString).doubleValue, longitude: (data["longitude"] as! NSString).doubleValue)
-                    let apName = data["apGroupName"] as! String
-                    let installLocation = data["installLocationDetail"] as! String
-                    let addressDong = data["addressDong"] as! String
-                    let addressDetail = data["addressDetail"] as! String
-                    self.makePin(location, apName, installLocation, addressDong, addressDetail)
-                }
-            }, onCompleted: {
-                print("completed")
-            })
-            .disposed(by: disposebag)
+    func urlrequest(baseDate: Int) {
+        let JEJU_URL = "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj"
+        for number in 1...22{
+            RxAlamofire
+                .request(.get, URL(string: JEJU_URL)!,parameters: ["number":number,"limit":100,"baseDate":baseDate])
+                .validate(statusCode: 200..<300)
+                .responseJSON()
+                .map{ try JSONSerialization.jsonObject(with:$0.data!, options: []) as! [String:Any] }
+                .map{ $0["data"]!}
+                .subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .default))
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { json in
+                    for data in json as! [[String:Any]]{
+                        let latitude = (data["latitude"] as! NSString).doubleValue
+                        let logtitude = (data["longitude"] as! NSString).doubleValue
+                        let apName = data["apGroupName"] as! String
+                        let installLocation = data["installLocationDetail"] as! String
+                        let addressDong = data["addressDong"] as! String
+                        let addressDetail = data["addressDetail"] as! String
+                        self.makePin(CLLocationCoordinate2D(latitude: latitude, longitude: logtitude), apName, installLocation, addressDong, addressDetail)
+                    }
+                })
+                .disposed(by: disposebag)
+        }
     }
 }
 
