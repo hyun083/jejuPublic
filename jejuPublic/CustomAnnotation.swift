@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 import MapKit
 
-class CustomAnnotation : MKPointAnnotation{
-    var myEvent:UIEvent?
+class JejuWifiAnnotation : MKPointAnnotation{
+//    var myEvent:UIEvent?
     var addressDong = String()
     var addressDetail = String()
 }
