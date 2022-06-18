@@ -17,7 +17,7 @@ import RxAlamofire
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FloatingPanelControllerDelegate{
 
-    @IBOutlet var mapView: MKMapView!
+    @IBOutlet var jejuMapView: MKMapView!
     var fpc: FloatingPanelController!
     let userLoc = CLLocationManager()
     var disposebag = DisposeBag()
@@ -32,7 +32,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         urlrequest(baseDate: 20200525)
         
         //맵뷰의 권한을 해당 뷰컨트롤러로 위임
-        mapView.delegate = self
+        jejuMapView.delegate = self
+        jejuMapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+        
         addMapTrackingButton()
         
         //선택한 와이파이의 정보를 표시하기위한 FloatingPanel 생성
@@ -128,7 +130,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //맵 핀 생성
     func makePin(_ location:CLLocationCoordinate2D, _ apName:String, _ installLocation:String, _ addressDong:String, _ addressDetail:String){
         //표시할 핀 생성
-        let pin = CustomAnnotation()
+        let pin = JejuWifiAnnotation()
         
         //핀에 정보 기입
         pin.title = apName
@@ -138,12 +140,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         pin.coordinate = location
         
         //지도에 핀 그리기
-        mapView.addAnnotation(pin)
+        jejuMapView.addAnnotation(pin)
     }
     
     //핀 클릭 이벤트 처리
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
-        if let CustomAnnotation = view.annotation as? CustomAnnotation{
+        if let CustomAnnotation = view.annotation as? JejuWifiAnnotation{
             print("\(CustomAnnotation.title)핀이 눌렸습니다.")
             //핀을 눌렀을 때 FloatingPanel에 추가정보 표시를 위해 updateView함수 호출
             if let contentVC = fpc.contentViewController as? ContentVC{
@@ -154,23 +156,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     //핀 로고 변경
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        //MKMarkerAnnotationView 생성
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
-        if annotationView == nil {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-        } else {
-            annotationView?.annotation = annotation
-        }
-        //사용자 위치 핀은 변경하지 않는다.
-        if annotation.isEqual(mapView.userLocation) {
-            return nil
-        } else{
+        if annotation is MKClusterAnnotation{ //클러스터 핀
+            //MKClusterAnnotationView 생성
+            let clusterAnnotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "jejuWifiClusterAnnotationView")
+            clusterAnnotationView.annotation = annotation
+            clusterAnnotationView.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
+            return clusterAnnotationView
+        }else if annotation is JejuWifiAnnotation{ //제주와이파이 핀
+            //MKMarkerAnnotationView 생성
+            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "jejuWifiAnnotationView")
+            annotationView.annotation = annotation
+            
             //색상은 주황색 적용, 따로 첨부한 와이파이 로고를 glyphImage로 변환하여 적용
-            annotationView?.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
-            annotationView?.glyphImage = UIImage(named: "wifi_logo")
-//            annotationView?.clusteringIdentifier = "APAnnotation"
+            annotationView.markerTintColor = #colorLiteral(red: 1, green: 0.5096537812, blue: 0, alpha: 1)
+            annotationView.glyphImage = UIImage(named: "wifi_logo")
+            annotationView.clusteringIdentifier = "wifi_annotation"
+            return annotationView
+        }else{ //이외의 핀(사용자 위치 핀)은 변경하지 않는다.
+            return nil
         }
-        return annotationView
+    }
+    
+    //MKClusterAnnotation 관련 이름 수정
+    func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+        let clusterAnnotation = MKClusterAnnotation(memberAnnotations: memberAnnotations)
+        clusterAnnotation.title = nil
+        clusterAnnotation.subtitle = nil
+        return clusterAnnotation
     }
     
     // MARK: - user location
@@ -191,7 +203,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             userLoc.startUpdatingLocation()
 
             //지도에서 내위치 보이기
-            mapView.showsUserLocation = true
+            jejuMapView.showsUserLocation = true
             
             //사용자의 위치 갱신. locationManager()함수를 호출한다.
             userLoc.startUpdatingLocation()
@@ -211,7 +223,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         let pRegion = MKCoordinateRegion(center: loc, span: pZoom)
         
         //사용자의 위치를 지도의 가운데로 이동
-        mapView.setRegion(pRegion, animated: true)
+        jejuMapView.setRegion(pRegion, animated: true)
         
         //위치갱신후 멈춰주어야 바로 동작한다.
         userLoc.stopUpdatingLocation()
@@ -220,16 +232,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //유저 트래킹 버튼 생성
     func addMapTrackingButton(){
         //버튼객체 생성
-        let buttonItem = MKUserTrackingButton(mapView: mapView)
+        let buttonItem = MKUserTrackingButton(mapView: jejuMapView)
         
         //버튼의 위치, 사이즈 색상, 곡률 설정
-        buttonItem.frame = CGRect(origin: CGPoint(x:10, y:mapView.frame.size.height*0.05 ), size: CGSize(width: 45, height: 45))
+        buttonItem.frame = CGRect(origin: CGPoint(x:10, y:jejuMapView.frame.size.height*0.05 ), size: CGSize(width: 45, height: 45))
         buttonItem.backgroundColor = .systemFill
         buttonItem.layer.cornerRadius = 7
         buttonItem.layer.masksToBounds = true
         
         //지도에 버튼 추가
-        mapView.addSubview(buttonItem)
+        jejuMapView.addSubview(buttonItem)
     }
     
     //위치정보 권한에 따른 트래킹버튼 이벤트 처리
