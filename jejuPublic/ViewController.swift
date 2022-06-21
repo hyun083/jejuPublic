@@ -26,7 +26,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         //사용자 맞춤 광고 권한 요청
-        requestPermission()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+            self.requestPermission()
+        }
         
         //제주 데이터 허브 api 요청. 매개변수로 갱신날짜를 입력한다.
         urlrequest(baseDate: 20200525)
@@ -59,6 +61,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     //MARK: - googleAdmob
+    
     //get IDFA
     func requestPermission() {
         ATTrackingManager.requestTrackingAuthorization { status in
