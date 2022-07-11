@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4E8F03E3DB4AC50E19CD1EAE /* Pods_jejuPublic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10715454F8E48ED9DCC0B9CD /* Pods_jejuPublic.framework */; };
-		D26A4DDC26C3D1E7000C4195 /* ContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */; };
-		D26A4DDE26C42E87000C4195 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */; };
+		D26713552872C78F003EDA3B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26713542872C78F003EDA3B /* ViewModel.swift */; };
+		D267137128741D24003EDA3B /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D267137028741D24003EDA3B /* APIManager.swift */; };
+		D26713AE2876DF1E003EDA3B /* JejuMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26713AD2876DF1E003EDA3B /* JejuMapView.swift */; };
+		D26A4DDC26C3D1E7000C4195 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDB26C3D1E7000C4195 /* InformationViewController.swift */; };
+		D26A4DDE26C42E87000C4195 /* JejuWifiAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26A4DDD26C42E87000C4195 /* JejuWifiAnnotation.swift */; };
 		D2A8487526CFB881008D0C9C /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */; };
 		D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D226A985A6007F4A16 /* AppDelegate.swift */; };
 		D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D426A985A6007F4A16 /* SceneDelegate.swift */; };
@@ -21,8 +24,11 @@
 
 /* Begin PBXFileReference section */
 		10715454F8E48ED9DCC0B9CD /* Pods_jejuPublic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jejuPublic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVC.swift; sourceTree = "<group>"; };
-		D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		D26713542872C78F003EDA3B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		D267137028741D24003EDA3B /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		D26713AD2876DF1E003EDA3B /* JejuMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JejuMapView.swift; sourceTree = "<group>"; };
+		D26A4DDB26C3D1E7000C4195 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		D26A4DDD26C42E87000C4195 /* JejuWifiAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JejuWifiAnnotation.swift; sourceTree = "<group>"; };
 		D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		D2E786CF26A985A6007F4A16 /* jejuPublic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jejuPublic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2E786D226A985A6007F4A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +63,46 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D267136B287412D9003EDA3B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D26713542872C78F003EDA3B /* ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D267136D287412F8003EDA3B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D2E786D826A985A6007F4A16 /* Main.storyboard */,
+				D2E786D626A985A6007F4A16 /* ViewController.swift */,
+				D26A4DDB26C3D1E7000C4195 /* InformationViewController.swift */,
+				D26713AD2876DF1E003EDA3B /* JejuMapView.swift */,
+				D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D267136E2874145D003EDA3B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D267137028741D24003EDA3B /* APIManager.swift */,
+				D26A4DDD26C42E87000C4195 /* JejuWifiAnnotation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D267136F28741471003EDA3B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				D2E786D226A985A6007F4A16 /* AppDelegate.swift */,
+				D2E786D426A985A6007F4A16 /* SceneDelegate.swift */,
+				D2E786DB26A985AA007F4A16 /* Assets.xcassets */,
+				D2E786DD26A985AA007F4A16 /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		D2E786C626A985A6007F4A16 = {
 			isa = PBXGroup;
 			children = (
@@ -78,16 +124,11 @@
 		D2E786D126A985A6007F4A16 /* jejuPublic */ = {
 			isa = PBXGroup;
 			children = (
-				D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */,
-				D26A4DDD26C42E87000C4195 /* CustomAnnotation.swift */,
-				D2E786D226A985A6007F4A16 /* AppDelegate.swift */,
-				D2E786D426A985A6007F4A16 /* SceneDelegate.swift */,
-				D2E786D626A985A6007F4A16 /* ViewController.swift */,
-				D2E786D826A985A6007F4A16 /* Main.storyboard */,
-				D26A4DDB26C3D1E7000C4195 /* ContentVC.swift */,
-				D2E786DB26A985AA007F4A16 /* Assets.xcassets */,
-				D2E786DD26A985AA007F4A16 /* LaunchScreen.storyboard */,
 				D2E786E026A985AA007F4A16 /* Info.plist */,
+				D267136F28741471003EDA3B /* SupportingFiles */,
+				D267136E2874145D003EDA3B /* Model */,
+				D267136D287412F8003EDA3B /* View */,
+				D267136B287412D9003EDA3B /* ViewModel */,
 			);
 			path = jejuPublic;
 			sourceTree = "<group>";
@@ -218,11 +259,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D26A4DDC26C3D1E7000C4195 /* ContentVC.swift in Sources */,
-				D26A4DDE26C42E87000C4195 /* CustomAnnotation.swift in Sources */,
+				D26713AE2876DF1E003EDA3B /* JejuMapView.swift in Sources */,
+				D26A4DDC26C3D1E7000C4195 /* InformationViewController.swift in Sources */,
+				D26A4DDE26C42E87000C4195 /* JejuWifiAnnotation.swift in Sources */,
+				D267137128741D24003EDA3B /* APIManager.swift in Sources */,
 				D2E786D726A985A6007F4A16 /* ViewController.swift in Sources */,
 				D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */,
 				D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */,
+				D26713552872C78F003EDA3B /* ViewModel.swift in Sources */,
 				D2A8487526CFB881008D0C9C /* CustomFloatingPanelLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

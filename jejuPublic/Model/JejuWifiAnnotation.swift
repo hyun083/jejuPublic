@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 import MapKit
+import RxCocoa
+import RxSwift
 
 class JejuWifiAnnotation : MKPointAnnotation{
-//    var myEvent:UIEvent?
-    var addressDong = String()
-    var addressDetail = String()
+    var addressDong: String?
+    var addressDetail: String?
 }

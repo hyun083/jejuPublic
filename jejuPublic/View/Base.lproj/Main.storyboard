@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="mapView" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uKp-o7-G8B">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="mapView" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uKp-o7-G8B" customClass="JejuMapView" customModule="jejuPublic" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="846"/>
                             </mapView>
                         </subviews>
@@ -31,17 +31,17 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="jejuMapView" destination="uKp-o7-G8B" id="kMS-sf-FOP"/>
+                        <outlet property="jejuMapView" destination="uKp-o7-G8B" id="tem-5h-aVX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="69.565217391304358" y="76.339285714285708"/>
         </scene>
-        <!--ContentVC-->
+        <!--Information View Controller-->
         <scene sceneID="FwY-dT-T8X">
             <objects>
-                <viewController storyboardIdentifier="ContentVC" id="lLb-Mn-GP4" customClass="ContentVC" customModule="jejuPublic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InformationView" id="lLb-Mn-GP4" customClass="InformationViewController" customModule="jejuPublic" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nwM-ff-EBR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
