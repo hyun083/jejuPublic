@@ -14,7 +14,7 @@ import MapKit
 class APIManager{
     let JEJU_URL = URL(string: "https://open.jejudatahub.net/api/proxy/Dtb18ta1btbD1Da1a81aaDttab6tDabb/b5eo8oep8e5_t58_15b81tc8tc2t_5jj")
     
-    func getWifiModels(number:Int, baseDate: Int) -> Observable<[JejuWifiAnnotation]> {
+    func getWifiModels(number: Int,baseDate: Int) -> Observable<[JejuWifiAnnotation]> {
         RxAlamofire
             .request(.get, JEJU_URL!,parameters: ["number":number,"limit":100,"baseDate":baseDate])
             .validate(statusCode: 200..<300)

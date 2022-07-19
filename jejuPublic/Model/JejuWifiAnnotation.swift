@@ -11,7 +11,7 @@ import MapKit
 import RxCocoa
 import RxSwift
 
-class JejuWifiAnnotation : MKPointAnnotation{
+class JejuWifiAnnotation: MKPointAnnotation{
     var addressDong: String?
     var addressDetail: String?
 }

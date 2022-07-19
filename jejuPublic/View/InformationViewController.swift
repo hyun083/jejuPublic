@@ -4,14 +4,14 @@
 //
 //  Created by Hyun on 2021/08/11.
 //
-import GoogleMobileAds
 import Foundation
-import UIKit
-import RxCocoa
-import RxSwift
 import GoogleMobileAds
 import AdSupport
 import AppTrackingTransparency
+import UIKit
+import RxCocoa
+import RxSwift
+
 
 class InformationViewController: UIViewController{
     @IBOutlet var apGroupName: UILabel!

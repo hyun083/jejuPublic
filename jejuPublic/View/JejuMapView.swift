@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class JejuMapView:MKMapView, CLLocationManagerDelegate{
+class JejuMapView: MKMapView, CLLocationManagerDelegate{
     let userLoc = CLLocationManager()
     
     // MARK: - userTracking button

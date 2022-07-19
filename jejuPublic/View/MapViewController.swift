@@ -4,18 +4,13 @@
 //
 //  Created by Hyun on 2021/07/22.
 //
-import GoogleMobileAds
-import AdSupport
-import AppTrackingTransparency
 import UIKit
 import MapKit
-import SwiftUI
 import FloatingPanel
 import RxSwift
 import RxCocoa
-import RxAlamofire
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FloatingPanelControllerDelegate{
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FloatingPanelControllerDelegate{
 
     @IBOutlet weak var jejuMapView: JejuMapView!
     var fpc: FloatingPanelController!
@@ -89,7 +84,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     //annotation 이벤트 처리
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let annotation = view.annotation as? JejuWifiAnnotation{
-            print("[ViewController]: \(annotation.title ?? "이름없는")핀이 눌렸습니다.")
+            print("[ViewController]: \(annotation.title ?? "이름없는") 핀이 눌렸습니다.")
             if let informationVC = fpc.contentViewController as? InformationViewController{
                 informationVC.viewModel.apGroupNameText.on(.next(annotation.title!))
                 informationVC.viewModel.addressDongText.on(.next(annotation.addressDong!))

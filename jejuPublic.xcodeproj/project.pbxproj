@@ -16,7 +16,7 @@
 		D2A8487526CFB881008D0C9C /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */; };
 		D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D226A985A6007F4A16 /* AppDelegate.swift */; };
 		D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D426A985A6007F4A16 /* SceneDelegate.swift */; };
-		D2E786D726A985A6007F4A16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D626A985A6007F4A16 /* ViewController.swift */; };
+		D2E786D726A985A6007F4A16 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E786D626A985A6007F4A16 /* MapViewController.swift */; };
 		D2E786DA26A985A6007F4A16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2E786D826A985A6007F4A16 /* Main.storyboard */; };
 		D2E786DC26A985AA007F4A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2E786DB26A985AA007F4A16 /* Assets.xcassets */; };
 		D2E786DF26A985AA007F4A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2E786DD26A985AA007F4A16 /* LaunchScreen.storyboard */; };
@@ -33,7 +33,7 @@
 		D2E786CF26A985A6007F4A16 /* jejuPublic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jejuPublic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2E786D226A985A6007F4A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2E786D426A985A6007F4A16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D2E786D626A985A6007F4A16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D2E786D626A985A6007F4A16 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D2E786D926A985A6007F4A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2E786DB26A985AA007F4A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2E786DE26A985AA007F4A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				D2E786D826A985A6007F4A16 /* Main.storyboard */,
-				D2E786D626A985A6007F4A16 /* ViewController.swift */,
+				D2E786D626A985A6007F4A16 /* MapViewController.swift */,
 				D26A4DDB26C3D1E7000C4195 /* InformationViewController.swift */,
 				D26713AD2876DF1E003EDA3B /* JejuMapView.swift */,
 				D2A8487426CFB881008D0C9C /* CustomFloatingPanelLayout.swift */,
@@ -263,7 +263,7 @@
 				D26A4DDC26C3D1E7000C4195 /* InformationViewController.swift in Sources */,
 				D26A4DDE26C42E87000C4195 /* JejuWifiAnnotation.swift in Sources */,
 				D267137128741D24003EDA3B /* APIManager.swift in Sources */,
-				D2E786D726A985A6007F4A16 /* ViewController.swift in Sources */,
+				D2E786D726A985A6007F4A16 /* MapViewController.swift in Sources */,
 				D2E786D326A985A6007F4A16 /* AppDelegate.swift in Sources */,
 				D2E786D526A985A6007F4A16 /* SceneDelegate.swift in Sources */,
 				D26713552872C78F003EDA3B /* ViewModel.swift in Sources */,
