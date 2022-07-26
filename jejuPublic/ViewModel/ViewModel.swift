@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import MapKit
 
-struct ViewModel{
+class ViewModel{
     let wifiModel = Observable.range(start: 1, count: 22)
         .flatMap{APIManager().getWifiModels(number: $0, baseDate: 20200525)}
     
@@ -41,9 +41,9 @@ struct ViewModel{
                 }
                 print("[viewModel]: 사용자 현재위치 주소 \(userAddress)")
                 
-                apGroupNameText.on(.next("현재위치"))
-                addressDetailText.on(.next(userAddress))
-                addressDongText.on(.next(""))
+                self.apGroupNameText.on(.next("현재위치"))
+                self.addressDetailText.on(.next(userAddress))
+                self.addressDongText.on(.next(""))
             }
         })
     }

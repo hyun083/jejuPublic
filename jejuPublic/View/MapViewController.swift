@@ -84,7 +84,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     //annotation 이벤트 처리
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if let annotation = view.annotation as? JejuWifiAnnotation{
-            print("[ViewController]: \(annotation.title ?? "이름없는") 핀이 눌렸습니다.")
+            print("[MapViewController]: \(annotation.title ?? "이름없는") 핀이 눌렸습니다.")
             if let informationVC = fpc.contentViewController as? InformationViewController{
                 informationVC.viewModel.apGroupNameText.on(.next(annotation.title!))
                 informationVC.viewModel.addressDongText.on(.next(annotation.addressDong!))
@@ -130,7 +130,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let status = CLLocationManager.authorizationStatus()
         //만약 사용자가 '앱 사용중 동의'를 선택했다면
         if status == CLAuthorizationStatus.authorizedWhenInUse{
-            print("[viewController]: 사용자 위치 권한정보",status.rawValue)
+            print("[MapViewController]: 사용자 위치 권한정보",status.rawValue)
             //트래킹모드 상태에 따른 정보 표시
             switch mode.rawValue{
             case 0:
@@ -150,7 +150,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
         //만약 사용자가 위치권한 사용 거부를 선택한 상태라면
         } else{
-            print("[viewController]: 사용자 위치 권한없음",status.rawValue)
+            print("[MapViewController]: 사용자 위치 권한없음",status.rawValue)
             //알림 생성
             let alertController = UIAlertController(title: "위치권한 설정이 필요합니다.", message: "앱 설정 화면으로 이동하시겠습니까? \n 위치 - 앱을 사용하는 동안", preferredStyle: .alert)
             
