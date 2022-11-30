@@ -54,7 +54,12 @@ public class SurfaceAppearance: NSObject {
     ///
     /// Defaults to `.circular`.
     @available(iOS 13.0, *)
-    public lazy var cornerCurve: CALayerCornerCurve = .circular
+    public var cornerCurve: CALayerCornerCurve {
+        get { _cornerCurve ?? .circular }
+        set { _cornerCurve = newValue }
+    }
+
+    private var _cornerCurve: CALayerCornerCurve?
 
     /// An array of shadows used to create drop shadows underneath a surface view.
     public var shadows: [Shadow] = [Shadow()]
@@ -85,7 +90,7 @@ public class SurfaceView: UIView {
 
     /// The grabber handle size
     ///
-    /// On left/right positioned panel the width dimension is used as the height of `grabberHandle`, and vice versa.
+    /// On left/right positioned panel the width dimension is used as the height of ``grabberHandle``, and vice versa.
     public var grabberHandleSize: CGSize = CGSize(width: 36.0, height: 5.0) { didSet {
         setNeedsUpdateConstraints()
     } }
@@ -408,12 +413,11 @@ public class SurfaceView: UIView {
         containerView.layer.borderWidth = appearance.borderWidth
     }
 
-    func set(contentView: UIView) {
+    func set(contentView: UIView, mode: FloatingPanelController.ContentMode) {
         containerView.addSubview(contentView)
         self.contentView = contentView
         /* contentView.frame = bounds */ // MUST NOT: Because the top safe area inset of a content VC will be incorrect.
         contentView.translatesAutoresizingMaskIntoConstraints = false
-
         let topConstraint = contentView.topAnchor.constraint(equalTo: topAnchor, constant: containerMargins.top + contentPadding.top)
         let leftConstraint = contentView.leftAnchor.constraint(equalTo: leftAnchor, constant: containerMargins.left + contentPadding.left)
         let rightConstraint = rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: containerMargins.right + contentPadding.right)
@@ -424,9 +428,15 @@ public class SurfaceView: UIView {
             rightConstraint,
             bottomConstraint,
         ].map {
-            $0.priority = .required - 1;
+            switch mode {
+            case .static:
+                $0.priority = .required
+            // The reason why this priority is set to .required - 1 is #359, which fixed #294.
+            case .fitToBounds:
+                $0.priority = .required - 1
+            }
             $0.identifier = "FloatingPanel-surface-content"
-            return $0;
+            return $0
         })
         self.contentViewTopConstraint = topConstraint
         self.contentViewLeftConstraint = leftConstraint
@@ -436,5 +446,23 @@ public class SurfaceView: UIView {
 
     func hasStackView() -> Bool {
         return contentView?.subviews.reduce(false) { $0 || ($1 is UIStackView) } ?? false
+    }
+
+    func grabberAreaContains(_ location: CGPoint) -> Bool {
+        // Sometimes a dragging finger's location is out of surface frame.
+        let cappedLocation: CGPoint
+        // Because the maximum width / height is out of bounds in CGRect.contains(_:)
+        let adjustment = 1 / fp_displayScale
+        switch position {
+        case .top:
+            cappedLocation = CGPoint(x: location.x, y: min(location.y, bounds.height - adjustment))
+        case .left:
+            cappedLocation = CGPoint(x: min(location.x, bounds.width - adjustment), y: location.y)
+        case .bottom:
+            cappedLocation = CGPoint(x: location.x, y: max(location.y, 0))
+        case .right:
+            cappedLocation = CGPoint(x: max(location.x, 0), y: location.y)
+        }
+        return grabberAreaFrame.contains(cappedLocation)
     }
 }
