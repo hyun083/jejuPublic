@@ -36,6 +36,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         jejuMapView.showUserLocation()
         jejuMapView.addMapTrackingButton()
         
+        
         //선택한 와이파이의 정보를 표시하기위한 FloatingPanel 생성
         fpc = FloatingPanelController(delegate: self)
         let informationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "InformationView")

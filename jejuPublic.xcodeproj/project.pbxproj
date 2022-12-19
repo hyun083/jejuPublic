@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE308D2579697EEB021E34B9 /* Pods_jejuPublic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F6C0C0BC295DAE69AC0A7EA /* Pods_jejuPublic.framework */; };
+		5B0967A2A6364F155A60AD3F /* Pods_jejuPublic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5EF2AD0850F424133D4F9E9 /* Pods_jejuPublic.framework */; };
 		D26713552872C78F003EDA3B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26713542872C78F003EDA3B /* ViewModel.swift */; };
 		D267137128741D24003EDA3B /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D267137028741D24003EDA3B /* APIManager.swift */; };
 		D26713AE2876DF1E003EDA3B /* JejuMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26713AD2876DF1E003EDA3B /* JejuMapView.swift */; };
@@ -23,8 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4F6C0C0BC295DAE69AC0A7EA /* Pods_jejuPublic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jejuPublic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0FFC08CCDE37A66B6B9B5A3 /* Pods-jejuPublic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.debug.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.debug.xcconfig"; sourceTree = "<group>"; };
+		05524C0EBEBFF25E9503A03F /* Pods-jejuPublic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.release.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.release.xcconfig"; sourceTree = "<group>"; };
+		38D304163856990CD08B55FB /* Pods-jejuPublic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.debug.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.debug.xcconfig"; sourceTree = "<group>"; };
+		B5EF2AD0850F424133D4F9E9 /* Pods_jejuPublic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jejuPublic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D26713542872C78F003EDA3B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		D267137028741D24003EDA3B /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		D26713AD2876DF1E003EDA3B /* JejuMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JejuMapView.swift; sourceTree = "<group>"; };
@@ -39,7 +40,6 @@
 		D2E786DB26A985AA007F4A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2E786DE26A985AA007F4A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2E786E026A985AA007F4A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FDD3C08A665464438C2FD5AE /* Pods-jejuPublic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.release.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE308D2579697EEB021E34B9 /* Pods_jejuPublic.framework in Frameworks */,
+				5B0967A2A6364F155A60AD3F /* Pods_jejuPublic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,18 +57,10 @@
 		68211CE321871F8F5CBB44EE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A0FFC08CCDE37A66B6B9B5A3 /* Pods-jejuPublic.debug.xcconfig */,
-				FDD3C08A665464438C2FD5AE /* Pods-jejuPublic.release.xcconfig */,
+				38D304163856990CD08B55FB /* Pods-jejuPublic.debug.xcconfig */,
+				05524C0EBEBFF25E9503A03F /* Pods-jejuPublic.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		80A1021771C4E5D72CE01437 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4F6C0C0BC295DAE69AC0A7EA /* Pods_jejuPublic.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D267136B287412D9003EDA3B /* ViewModel */ = {
@@ -117,7 +109,7 @@
 				D2E786D126A985A6007F4A16 /* jejuPublic */,
 				D2E786D026A985A6007F4A16 /* Products */,
 				68211CE321871F8F5CBB44EE /* Pods */,
-				80A1021771C4E5D72CE01437 /* Frameworks */,
+				FE09D5D0F5672D0482BA505F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,6 +133,14 @@
 			path = jejuPublic;
 			sourceTree = "<group>";
 		};
+		FE09D5D0F5672D0482BA505F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B5EF2AD0850F424133D4F9E9 /* Pods_jejuPublic.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,11 +148,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2E786E326A985AA007F4A16 /* Build configuration list for PBXNativeTarget "jejuPublic" */;
 			buildPhases = (
-				554C734E5EDC4652EB8B4E3E /* [CP] Check Pods Manifest.lock */,
+				535763CCE35782F59CB46C9C /* [CP] Check Pods Manifest.lock */,
 				D2E786CB26A985A6007F4A16 /* Sources */,
 				D2E786CC26A985A6007F4A16 /* Frameworks */,
 				D2E786CD26A985A6007F4A16 /* Resources */,
-				4780DB0F2ECD64C3A693384B /* [CP] Embed Pods Frameworks */,
+				71D868C22F5E46DB22E000A9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -209,24 +209,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4780DB0F2ECD64C3A693384B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jejuPublic/Pods-jejuPublic-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jejuPublic/Pods-jejuPublic-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jejuPublic/Pods-jejuPublic-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		554C734E5EDC4652EB8B4E3E /* [CP] Check Pods Manifest.lock */ = {
+		535763CCE35782F59CB46C9C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,6 +229,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		71D868C22F5E46DB22E000A9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-jejuPublic/Pods-jejuPublic-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-jejuPublic/Pods-jejuPublic-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jejuPublic/Pods-jejuPublic-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -407,19 +407,21 @@
 		};
 		D2E786E426A985AA007F4A16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0FFC08CCDE37A66B6B9B5A3 /* Pods-jejuPublic.debug.xcconfig */;
+			baseConfigurationReference = 38D304163856990CD08B55FB /* Pods-jejuPublic.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 2GY4XTB4R5;
+				ENABLE_TESTABILITY = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = jejuPublic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyun.jejuPublic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -429,19 +431,21 @@
 		};
 		D2E786E526A985AA007F4A16 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FDD3C08A665464438C2FD5AE /* Pods-jejuPublic.release.xcconfig */;
+			baseConfigurationReference = 05524C0EBEBFF25E9503A03F /* Pods-jejuPublic.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 2GY4XTB4R5;
+				ENABLE_TESTABILITY = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = jejuPublic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyun.jejuPublic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

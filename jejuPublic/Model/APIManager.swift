@@ -37,7 +37,7 @@ class APIManager{
                     
                     annotations.append(annotation)
                 }
-                print("[APIManager]:",number,"requested")
+                print("[APIManager]:",number,"requested","\(annotations.count) returned")
                 return annotations
             }
     }

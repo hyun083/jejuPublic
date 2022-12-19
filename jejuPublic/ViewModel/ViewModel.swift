@@ -11,8 +11,9 @@ import RxCocoa
 import MapKit
 
 class ViewModel{
-    let wifiModel = Observable.range(start: 1, count: 22)
-        .flatMap{APIManager().getWifiModels(number: $0, baseDate: 20200525)}
+    let wifiModel = Observable.range(start: 1, count: 29)
+        .retry(3)
+        .flatMap{APIManager().getWifiModels(number: $0, baseDate: 20221130)}
     
     let apGroupNameText = BehaviorSubject(value: "공공와이파이")
     let addressDetailText = BehaviorSubject(value: "상세주소")
