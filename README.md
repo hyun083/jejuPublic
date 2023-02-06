@@ -11,7 +11,7 @@
 ## 앱 구조
 ![mvvm](https://user-images.githubusercontent.com/58415560/217043942-452fbf7c-962b-4ac1-9e10-08b64dfdf18c.png)
 ![file_hierarchy](https://user-images.githubusercontent.com/58415560/217040690-9cf0805a-c1b5-440a-82e3-08b3faf9fa7e.png)
-![mvvmclass](https://user-images.githubusercontent.com/58415560/217043440-b8f5ae97-dbad-42bb-85cb-bcc11026d258.png)
+![mvvmclass](https://user-images.githubusercontent.com/58415560/217045991-dd8b2ec8-113b-4414-8e3c-5a4c462beade.png)
 
 
 ## 앱 시작 및 이용 화면
