@@ -1,4 +1,6 @@
+<a href="https://apps.apple.com/kr/app/jejupublicwifi/id1585913922" target="_blank">
 <p align="center"><img src="https://user-images.githubusercontent.com/58415560/217880074-aeba585d-8cc3-4024-be4b-6605e93fa870.png" width="30%"></p>
+<a>
 
 # jejuPublicWifi
 국가 사업으로 운영중인 제주도 내의 2000여개의 공공 와이파이의 위치를 제공하는 모바일 지도 서비스입니다.
