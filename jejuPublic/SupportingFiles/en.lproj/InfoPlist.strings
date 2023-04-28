@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  jejuPublic
+
+  Created by Hyun on 2023/04/28.
+  
+*/
+CFBundleDisplayName = "jejuPublicWifi";
+NSLocationWhenInUseUsageDescription = "Your data will be used to show current location on the map.";
+NSUserTrackingUsageDescription = "Your data will be used to deliver personalized ads to you.";

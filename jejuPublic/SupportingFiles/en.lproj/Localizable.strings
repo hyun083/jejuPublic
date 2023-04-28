@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  jejuPublic
+
+  Created by Hyun on 2023/04/28.
+  
+*/
+"AP_name" = "AP name";
+"address_detail" = "Adress";
+"address_admin" = "Precinct";
+"user_location" = "User location";

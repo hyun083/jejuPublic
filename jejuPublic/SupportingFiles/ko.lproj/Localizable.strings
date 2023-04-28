@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  jejuPublic
+
+  Created by Hyun on 2023/04/28.
+  
+*/
+"AP_name" = "공공와이파이";
+"address_detail" = "상세주소";
+"adress_admin" = "관할구역";
+"user_location" = "현재위치";
