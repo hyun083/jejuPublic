@@ -138,9 +138,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 //트래킹 모드 중지, FloatingPanel 초기값으로 변경
                 print("[trackingMode]:\(mode.rawValue)")
                 if let informationVC = self.fpc.contentViewController as? InformationViewController{
-                    informationVC.viewModel.apGroupNameText.on(.next("공공와이파이"))
-                    informationVC.viewModel.addressDetailText.on(.next("상세주소"))
-                    informationVC.viewModel.addressDongText.on(.next("행정구역"))
+                    informationVC.viewModel.apGroupNameText.on(.next(NSLocalizedString("AP_name", comment: "")))
+                    informationVC.viewModel.addressDetailText.on(.next(NSLocalizedString("address_detail", comment: "")))
+                    informationVC.viewModel.addressDongText.on(.next(NSLocalizedString("address_admin", comment: "")))
                 }
             default:
                 //1 현재위치, 2 나침반모드
@@ -153,16 +153,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         } else{
             print("[MapViewController]: 사용자 위치 권한없음",status.rawValue)
             //알림 생성
-            let alertController = UIAlertController(title: "위치권한 설정이 필요합니다.", message: "앱 설정 화면으로 이동하시겠습니까? \n 위치 - 앱을 사용하는 동안", preferredStyle: .alert)
-            
+            let alertController = UIAlertController(title: "'jejuPublisWifi'(이)가 사용자의 위치를 사용하도록 허락하겠습니까?", message: "사용자의 위치를 지도위에 표시하기 위해 사용됩니다.", preferredStyle: .alert)
+
             //"네"버튼 생성, 사용자가 누를 시 위치권한 메뉴로 진입
-            alertController.addAction(UIAlertAction(title: "네", style: .default, handler: {(action) -> Void in if let appSettings = URL(string: UIApplication.openSettingsURLString){
+            alertController.addAction(UIAlertAction(title: "설정에서 켜기", style: .default, handler: {(action) -> Void in if let appSettings = URL(string: UIApplication.openSettingsURLString){
                 UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)}
             }))
-    
+
             //"아니요" 버튼 생성
-            alertController.addAction(UIAlertAction(title: "아니요", style: .destructive, handler: nil))
-            
+            alertController.addAction(UIAlertAction(title: "위치 서비스 끔 상태 유지", style: .default, handler: nil))
+
             //알림 띄우기
             self.present(alertController, animated: true, completion: nil)
         }

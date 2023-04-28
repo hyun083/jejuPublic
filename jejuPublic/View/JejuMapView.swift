@@ -52,6 +52,7 @@ class JejuMapView: MKMapView, CLLocationManagerDelegate{
             //사용자의 위치 갱신. locationManager()함수를 호출한다.
             userLoc.startUpdatingLocation()
         } else{
+            userLoc.requestWhenInUseAuthorization()
             print("[JejuMapView]: 사용자 위치 권한 없음",status.rawValue)
         }
     }

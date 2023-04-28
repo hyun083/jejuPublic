@@ -11,17 +11,18 @@ import RxCocoa
 import MapKit
 
 class ViewModel{
+    
     let wifiModel = Observable.range(start: 1, count: 29)
         .retry(3)
-        .flatMap{APIManager().getWifiModels(number: $0, baseDate: 20221130)}
+        .flatMap{APIManager().getWifiModels(number: $0, baseDate: "20230419")}
     
-    let apGroupNameText = BehaviorSubject(value: "공공와이파이")
-    let addressDetailText = BehaviorSubject(value: "상세주소")
-    let addressDongText = BehaviorSubject(value: "행정구역")
+    let apGroupNameText = BehaviorSubject(value: NSLocalizedString("AP_name", comment: ""))
+    let addressDetailText = BehaviorSubject(value: NSLocalizedString("address_detail", comment: ""))
+    let addressDongText = BehaviorSubject(value: NSLocalizedString("address_admin", comment: ""))
     
     func setUserAddress(to location:CLLocation){
         let findLocation = location
-        let locale = Locale(identifier: "ko-kr")
+        let locale = Locale(identifier: "ko_KR")
         let geocoder = CLGeocoder()
         var userAddress: String = ""
         
@@ -42,7 +43,7 @@ class ViewModel{
                 }
                 print("[viewModel]: 사용자 현재위치 주소 \(userAddress)")
                 
-                self.apGroupNameText.on(.next("현재위치"))
+                self.apGroupNameText.on(.next(NSLocalizedString("user_location", comment: "")))
                 self.addressDetailText.on(.next(userAddress))
                 self.addressDongText.on(.next(""))
             }

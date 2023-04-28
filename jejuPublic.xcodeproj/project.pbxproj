@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5B0967A2A6364F155A60AD3F /* Pods_jejuPublic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5EF2AD0850F424133D4F9E9 /* Pods_jejuPublic.framework */; };
+		D230295529FBB50D00656A6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D230295729FBB50D00656A6D /* Localizable.strings */; };
+		D230295D29FBBB1900656A6D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D230295F29FBBB1900656A6D /* InfoPlist.strings */; };
 		D26713552872C78F003EDA3B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26713542872C78F003EDA3B /* ViewModel.swift */; };
 		D267137128741D24003EDA3B /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D267137028741D24003EDA3B /* APIManager.swift */; };
 		D26713AE2876DF1E003EDA3B /* JejuMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26713AD2876DF1E003EDA3B /* JejuMapView.swift */; };
@@ -26,6 +28,12 @@
 		05524C0EBEBFF25E9503A03F /* Pods-jejuPublic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.release.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.release.xcconfig"; sourceTree = "<group>"; };
 		38D304163856990CD08B55FB /* Pods-jejuPublic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jejuPublic.debug.xcconfig"; path = "Target Support Files/Pods-jejuPublic/Pods-jejuPublic.debug.xcconfig"; sourceTree = "<group>"; };
 		B5EF2AD0850F424133D4F9E9 /* Pods_jejuPublic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jejuPublic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D230295629FBB50D00656A6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D230295829FBB58100656A6D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D230295929FBB58200656A6D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		D230295A29FBB58200656A6D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D230295E29FBBB1900656A6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D230296029FBBB1D00656A6D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D26713542872C78F003EDA3B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		D267137028741D24003EDA3B /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		D26713AD2876DF1E003EDA3B /* JejuMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JejuMapView.swift; sourceTree = "<group>"; };
@@ -95,6 +103,8 @@
 		D267136F28741471003EDA3B /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				D230295F29FBBB1900656A6D /* InfoPlist.strings */,
+				D230295729FBB50D00656A6D /* Localizable.strings */,
 				D2E786D226A985A6007F4A16 /* AppDelegate.swift */,
 				D2E786D426A985A6007F4A16 /* SceneDelegate.swift */,
 				D2E786DB26A985AA007F4A16 /* Assets.xcassets */,
@@ -184,6 +194,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = D2E786C626A985A6007F4A16;
 			productRefGroup = D2E786D026A985A6007F4A16 /* Products */;
@@ -201,8 +212,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2E786DF26A985AA007F4A16 /* LaunchScreen.storyboard in Resources */,
+				D230295529FBB50D00656A6D /* Localizable.strings in Resources */,
 				D2E786DC26A985AA007F4A16 /* Assets.xcassets in Resources */,
 				D2E786DA26A985A6007F4A16 /* Main.storyboard in Resources */,
+				D230295D29FBBB1900656A6D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,10 +283,29 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		D230295729FBB50D00656A6D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D230295629FBB50D00656A6D /* en */,
+				D230295A29FBB58200656A6D /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D230295F29FBBB1900656A6D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D230295E29FBBB1900656A6D /* en */,
+				D230296029FBBB1D00656A6D /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		D2E786D826A985A6007F4A16 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D2E786D926A985A6007F4A16 /* Base */,
+				D230295929FBB58200656A6D /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -282,6 +314,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D2E786DE26A985AA007F4A16 /* Base */,
+				D230295829FBB58100656A6D /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -293,6 +326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -354,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -412,18 +447,23 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2GY4XTB4R5;
 				ENABLE_TESTABILITY = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = jejuPublic/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyun.jejuPublic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -436,18 +476,23 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2GY4XTB4R5;
 				ENABLE_TESTABILITY = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = jejuPublic/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyun.jejuPublic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

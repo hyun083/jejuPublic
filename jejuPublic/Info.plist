@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>사용자의 현재위치를 지도에 표시합니다.</string>
+	<string>위치권한설정</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>앱이 타겟광고게재 추적 목적으로 IDFA에 접근하려고 합니다.</string>
 	<key>UIApplicationSceneManifest</key>
