@@ -9,6 +9,8 @@
 
 ## 동작 요약
 
+![DPMN](https://github.com/hyun083/jejuPublic/assets/58415560/28310f93-0fb2-43cd-a89c-a4aa89cd98aa)
+
 제주데이터허브의 rest-api를 사용하여 제주도 공공와이파이의 정보를 받아옵니다. 이후 mapkit API를 사용하여 지도 위에 위치를 표시합니다.
 
 사용자의 위치정보를 수신하여 사용자 주변에 위치한 공공와이파이를 표시합니다. 
